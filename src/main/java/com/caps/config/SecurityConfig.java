@@ -21,11 +21,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
 		auth.jdbcAuthentication().dataSource(dataSource)
-		.usersByUsernameQuery("select username, password, enabled"
-				+ " from users where username=?")
-		.authoritiesByUsernameQuery("select username, authority "
-				+ "from authorities where username=?")
-		.passwordEncoder(passwordEncoder());
+		.usersByUsernameQuery("select userid, password, enabled from account where userid=?")
+		.authoritiesByUsernameQuery("select userid, authority " + "from accountrole where userid=?");
+		// .passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
@@ -33,23 +31,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
-
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		//    http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
-		//    .and()
-		//    .httpBasic(); // Authenticate users with HTTP basic authentication
+		// http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER")
+		// .and()
+		// .httpBasic(); // Authenticate users with HTTP basic authentication
 		http.authorizeRequests()
-		.antMatchers("/CustomersJPA/admin").access("hasRole('ROLE_ADMIN')")
-		.antMatchers("/CustomersJPA/dba").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
+		.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')")
+		.antMatchers("/lecturer/*").access("hasRole('ROLE_LECTURER')")
+		.antMatchers("/student/*").access("hasRole('ROLE_STUDENT')")
 		.and()
-		.formLogin().loginPage("/CustomersJPA/login")
-		.defaultSuccessUrl("/CustomersJPA/InsertCustomer").failureUrl("/CustomersJPA/login?error")
+		.formLogin().loginPage("/login")
+		.successHandler(new LoginSuccessHandle())
+		.failureUrl("/login?error")
 		.usernameParameter("userid").passwordParameter("password")
-		.and()
-		.csrf().disable();
+		.and().csrf().disable();
 	}
+
 }
-
-

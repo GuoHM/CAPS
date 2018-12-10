@@ -1,21 +1,28 @@
 package com.caps.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.caps.service.TestService;
 
 @Controller
-@RequestMapping(value = "/CAPS")
+@RequestMapping(value = "/demo")
 public class DemoController {
 	
-	@RequestMapping("/Hello")
+	@Autowired
+	TestService testService;
+	
+	@RequestMapping("/finduser")
 	@ResponseBody
 	public ModelAndView insertCustomers(Model model) {
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("Text", "This is a demo controller, the url request is localhost:8080/CAPS/Hello");
+		mav.addObject("Text", testService.findUser());
+		mav.addObject("Text2", testService.findCourse());
+		mav.addObject("Text3", testService.findEnrollment());
 		return mav;
 	}
 

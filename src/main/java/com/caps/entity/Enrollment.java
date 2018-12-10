@@ -3,32 +3,31 @@ package com.caps.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
-
 /**
  * The persistent class for the enrollment database table.
  * 
  */
 @Entity
-@NamedQuery(name="Enrollment.findAll", query="SELECT e FROM Enrollment e")
+@NamedQuery(name = "Enrollment.findAll", query = "SELECT e FROM Enrollment e")
 public class Enrollment implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@EmbeddedId
 	private EnrollmentPK id;
 
-	@Column(name="enrollment_date")
+	@Column(name = "enrollment_date")
 	private String enrollmentDate;
 
 	private int grades;
 
-	//bi-directional many-to-one association to Account
+	// bi-directional many-to-one association to Account
 	@ManyToOne
-	@JoinColumn(name="userid")
+	@JoinColumn(name = "userid", insertable = false, updatable = false)
 	private Account account;
 
-	//bi-directional many-to-one association to Course
+	// bi-directional many-to-one association to Course
 	@ManyToOne
-	@JoinColumn(name="courseid")
+	@JoinColumn(name = "courseid", insertable = false, updatable = false)
 	private Course course;
 
 	public Enrollment() {

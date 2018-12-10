@@ -5,26 +5,25 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the course database table.
  * 
  */
 @Entity
-@NamedQuery(name="Course.findAll", query="SELECT c FROM Course c")
+@NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
 public class Course implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int courseid;
 
-	@Column(name="class_size")
+	@Column(name = "class_size")
 	private int classSize;
 
-	@Column(name="course_name")
+	@Column(name = "course_name")
 	private String courseName;
 
-	@Column(name="course_status")
+	@Column(name = "course_status")
 	private String courseStatus;
 
 	private int credit;
@@ -32,16 +31,16 @@ public class Course implements Serializable {
 	private String duration;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name="start_date")
+	@Column(name = "start_date")
 	private Date startDate;
 
-	//bi-directional many-to-one association to Account
+	// bi-directional many-to-one association to Account
 	@ManyToOne
-	@JoinColumn(name="lecture_id")
+	@JoinColumn(name = "lecture_id")
 	private Account account;
 
-	//bi-directional many-to-one association to Enrollment
-	@OneToMany(mappedBy="course")
+	// bi-directional many-to-one association to Enrollment
+	@OneToMany(mappedBy = "course")
 	private List<Enrollment> enrollments;
 
 	public Course() {

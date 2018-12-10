@@ -5,13 +5,12 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * The persistent class for the account database table.
  * 
  */
 @Entity
-@NamedQuery(name="Account.findAll", query="SELECT a FROM Account a")
+@NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -31,21 +30,21 @@ public class Account implements Serializable {
 
 	private String password;
 
-	@Column(name="phone_number")
+	@Column(name = "phone_number")
 	private String phoneNumber;
 
 	private String type;
 
-	//bi-directional one-to-one association to Accountrole
-	@OneToOne(mappedBy="account")
+	// bi-directional one-to-one association to Accountrole
+	@OneToOne(mappedBy = "account")
 	private Accountrole accountrole;
 
-	//bi-directional many-to-one association to Course
-	@OneToMany(mappedBy="account")
+	// bi-directional many-to-one association to Course
+	@OneToMany(mappedBy = "account")
 	private List<Course> courses;
 
-	//bi-directional many-to-one association to Enrollment
-	@OneToMany(mappedBy="account")
+	// bi-directional many-to-one association to Enrollment
+	@OneToMany(mappedBy = "account")
 	private List<Enrollment> enrollments;
 
 	public Account() {

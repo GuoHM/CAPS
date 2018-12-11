@@ -13,11 +13,13 @@
 					<form class="form-inline">
 						<div class="form-group">
 							<label for="sel1">Select course:</label>
-							<select class="form-control" id="course-list">
+							<select class="form-control" id="course-list" style="width:200px" size="1">
 								<option th:each="course:${courselist}" th:value="${course.courseid}" th:text="${course.courseName}"></option>
 							</select>
 						</div>
-						<button type="submit" class="btn btn-default" id="submit-course">Submit</button>
+						<div class="form-group">
+							<input type="button" value="submit" id="submit-course" class="btn btn-default">
+						</div>
 					</form>
 					<table class="table" id="enrollment-table"></table>
 				</div>

@@ -11,9 +11,9 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#demo-table').bootstrapTable({
+		$('#stu-table').bootstrapTable({
 			method : 'get', 
-			url : "/demo/api/enrollment",
+			url : "/admin/api/enrollment-student",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,23 +41,31 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'id',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'id.userid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'enrollmentDate',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'enrollmentDate'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'grades',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
-			}],
+				field : 'grades'
+			},{
+				align : "center",
+				title : '',
+				sortable : true,
+				sortable : true,
+				field : 'ID',
+				formatter:actionFormatter
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -94,3 +102,11 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+function actionFormatter(value, row, index) {
+	var id = value;
+	var result = "";
+	result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+	result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+	return result;
+}

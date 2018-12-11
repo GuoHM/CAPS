@@ -30,10 +30,13 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Course> findAllCourses() {
 		// TODO Auto-generated method stub
-//		List<Account> result = new ArrayList<Account>();
-//		result.add(userDao.findByUserid(1));
-//		return result;
 		return courseDao.findAll();
+	}
+
+	@Override
+	public List<Enrollment> findEnrollment() {
+		// TODO Auto-generated method stub
+		return enrollmentDao.findByIdUserid(1);
 	}
 
 }

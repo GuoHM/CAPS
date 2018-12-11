@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.caps.entity.Course;
 import com.caps.service.LecturerService;
@@ -26,6 +27,7 @@ public class LecturerController {
 	}
 	
 	@RequestMapping("/api/listcourse")
+	@ResponseBody
 	public List<Course> listCourses(HttpSession httpsession) {	
 		return lecturerservice.findCourseByLecturer(httpsession);
 	}

@@ -1,10 +1,8 @@
 $(document).ready(function() {
 
-//	var oTableInit = new TableInit();
-//	oTableInit.Init();
+var oTableInit = new TableInit();
+oTableInit.Init();
 
-	var oButtonInit = new ButtonInit();
-	oButtonInit.Init();
 
 });
 
@@ -41,23 +39,30 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'courseid',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'courseid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'courseName',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'courseName'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'courseStatus',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
-			}],
+				field : 'courseStatus'
+			},{
+				align : "center",
+				title : 'startDate',
+				sortable : true,
+				sortable : true,
+				field : 'startDate'
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -68,7 +73,7 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				//courseid : $("#course-list").val()
+				courseid : $("#course-list").val()
 		};
 		return temp;
 	};

@@ -21,7 +21,7 @@ public class DemoController {
 	TestService testService;
 	
 	@RequestMapping("/finduser")
-	@ResponseBody
+	
 	public ModelAndView insertCustomers(Model model) {
 		ModelAndView mav = new ModelAndView("index");
 	

@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	var oButtonInit = new ButtonInit();
-	oButtonInit.Init();
+	var oTableInit = new TableInit();
+	oTableInit.Init();
 });
 
 var TableInit = function() {

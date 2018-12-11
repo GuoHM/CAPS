@@ -68,7 +68,7 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				courseid : $("#course-list").val()
+				
 		};
 		return temp;
 	};

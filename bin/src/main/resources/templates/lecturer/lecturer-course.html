@@ -10,19 +10,15 @@
 					<div th:replace="fragments/admin-sidebar :: admin-sidebar"></div>
 				</div>
 				<div class="col-xs-10 column">
-					<span th:text="${Text}"></span>
-					</br>
-					<span th:text="${Text2}"></span>
-					</br>
-					<span th:text="${Text3}"></span>
-					<table class="table" id="demo-table"></table>
+			
+					<table class="table" id="courses-table"></table>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div th:replace="fragments/footer::footer"></div>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
-	<script type="text/javascript" th:src="@{/js/tables/demo-customers.js}"></script>
+	<script type="text/javascript" th:src="@{/js/tables/courses-table.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>
 	<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 </body>

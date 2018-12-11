@@ -36,4 +36,20 @@ public class AdminServiceImpl implements AdminService{
 		return courseDao.findAll();
 	}
 
+	@Override
+	public List<Account> findAllLecturers() {
+		// TODO Auto-generated method stub
+//		List<Account> result = new ArrayList<Account>();
+//		result.add(userDao.findByUserid(1));
+//		return result;
+		return userDao.findAll();
+		
+	}
+
+	@Override
+	public List<Account> findByType() {
+		// TODO Auto-generated method stub
+		return userDao.findByType("lecturer");
+	}
+
 }

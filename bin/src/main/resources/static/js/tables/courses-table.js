@@ -11,9 +11,9 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#demo-table').bootstrapTable({
+		$('#courses-table').bootstrapTable({
 			method : 'get', 
-			url : "/admin/api/listlecturer",
+			url : "/lecturer/api/listcourse",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,58 +41,48 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'Course ID',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'courseid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'courseName'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'Class Size',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
+				field : 'classSize'
 			},{
 				align : "center",
-				title : 'email',
+				title : 'Start Date',
 				sortable : true,
 				sortable : true,
-				field : 'email'
+				field : 'startDate'
 			},{
 				align : "center",
-				title : 'phoneNumber',
+				title : 'Duration',
 				sortable : true,
 				sortable : true,
-				field : 'phoneNumber'
+				field : 'duration'
 			},{
 				align : "center",
-				title : 'address',
+				title : 'Course Status',
 				sortable : true,
 				sortable : true,
-				field : 'address'
+				field : 'courseStatus'
 			},{
 				align : "center",
-				title : 'password',
+				title : 'Credit',
 				sortable : true,
 				sortable : true,
-				field : 'password'
-			},{
-				align : "center",
-				title : 'enabled',
-				sortable : true,
-				sortable : true,
-				field : 'enabled'
-			},{
-				align : "center",
-				title : 'type',
-				sortable : true,
-				sortable : true,
-				field : 'type'
+				field : 'credit'
+					
+					
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";
@@ -120,7 +110,7 @@ var ButtonInit = function() {
 	oInit.Init = function() {
 		// button
 		$('#btnListCustomer').click(function() {
-			$("#demo-table").bootstrapTable('destroy');
+			$("#courses-table").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})

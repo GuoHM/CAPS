@@ -61,6 +61,10 @@ var TableInit = function() {
 				sortable : true,
 				sortable : true,
 				field : 'startDate'
+			},{
+				align : "center",
+				title : '',
+				formatter: actionFormatter
 			}
 			],
 			formatLoadingMessage : function() {
@@ -99,3 +103,11 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+function actionFormatter(value, row, index) {
+    var id = value;
+    var result = "";
+    result += "<a href='/admin/enrollment-student' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='Detail'><span class='glyphicon glyphicon-search'></span></a>";
+ 
+    return result;
+}

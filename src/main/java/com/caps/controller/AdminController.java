@@ -28,7 +28,7 @@ public class AdminController {
 	@RequestMapping("/welcome")
 	@ResponseBody
 	public ModelAndView insertCustomers(HttpSession httpSession) {
-		ModelAndView mav = new ModelAndView("admin/welcome");
+		ModelAndView mav = new ModelAndView("/admin/welcome");
 		mav.addObject("Text", UserUtil.currentUser(httpSession));
 		return mav;
 	}
@@ -36,7 +36,7 @@ public class AdminController {
 	@RequestMapping("/findlecturer")
 	@ResponseBody
 	public ModelAndView insertCustomers(Model model) {
-		ModelAndView mav = new ModelAndView("admin/Listlecturer");
+		ModelAndView mav = new ModelAndView("/admin/Listlecturer");
 	
 		return mav;
 	}
@@ -50,7 +50,7 @@ public class AdminController {
 	@RequestMapping("/enrollment")
 	@ResponseBody
 	public ModelAndView enrollment(HttpSession httpSession) {
-		ModelAndView mav = new ModelAndView("admin/enrollment-course");
+		ModelAndView mav = new ModelAndView("/admin/enrollment-course");
 		mav.addObject("Text", UserUtil.currentUser(httpSession));
 		return mav;
 	}
@@ -58,7 +58,7 @@ public class AdminController {
 	@RequestMapping("/enrollment-student")
 	@ResponseBody
 	public ModelAndView enrollmentSTU(HttpSession httpSession) {
-		ModelAndView mav = new ModelAndView("admin/enrollment-student");
+		ModelAndView mav = new ModelAndView("/admin/enrollment-student");
 		mav.addObject("Text", UserUtil.currentUser(httpSession));
 		return mav;
 	}

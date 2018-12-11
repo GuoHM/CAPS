@@ -9,6 +9,5 @@ import com.caps.entity.Course;
 
 public interface CourseDao extends JpaRepository<Course, Integer> {
 	List<Course> findByCourseid(int courseid);
-	
 	List<Course> findByAccount(Account account);
 }

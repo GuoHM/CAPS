@@ -50,19 +50,19 @@ var TableInit = function() {
 				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'course_name'
+				field : 'courseName'
 			},{
 				align : "center",
 				title : 'Class Size',
 				sortable : true,
 				sortable : true,
-				field : 'class_size'
+				field : 'classSize'
 			},{
 				align : "center",
 				title : 'Start Date',
 				sortable : true,
 				sortable : true,
-				field : 'start_date'
+				field : 'startDate'
 			},{
 				align : "center",
 				title : 'Duration',
@@ -74,7 +74,7 @@ var TableInit = function() {
 				title : 'Course Status',
 				sortable : true,
 				sortable : true,
-				field : 'course_status'
+				field : 'courseStatus'
 			},{
 				align : "center",
 				title : 'Credit',

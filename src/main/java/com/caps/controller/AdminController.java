@@ -71,7 +71,7 @@ public class AdminController {
 	
 	@RequestMapping("/api/enrollment-student")
 	@ResponseBody
-	public List<Enrollment> listEnrollment() {
+	public List<Enrollment> listEnrollmentStu() {
 		return adminService.findEnrollment();
 	}
 	

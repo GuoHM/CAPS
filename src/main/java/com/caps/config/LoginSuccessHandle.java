@@ -20,7 +20,7 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
 			response.sendRedirect("/admin/welcome");
 			return;
 		} else if (roles.contains("ROLE_LECTURER")) {
-			response.sendRedirect("/lecturer/welcome");
+			response.sendRedirect("/lecturer/lecturer-course");
 			return;
 		} else if (roles.contains("ROLE_STUDENT")) {
 			response.sendRedirect("/student/welcome");

@@ -2,6 +2,11 @@ package com.caps.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +16,7 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name = "Account.findAll", query = "SELECT a FROM Account a")
+@JsonIgnoreProperties("directory")
 public class Account implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -37,14 +43,17 @@ public class Account implements Serializable {
 
 	// bi-directional one-to-one association to Accountrole
 	@OneToOne(mappedBy = "account")
+	@JsonIgnore
 	private Accountrole accountrole;
 
 	// bi-directional many-to-one association to Course
 	@OneToMany(mappedBy = "account")
+	@JsonIgnore
 	private List<Course> courses;
 
 	// bi-directional many-to-one association to Enrollment
 	@OneToMany(mappedBy = "account")
+	@JsonIgnore
 	private List<Enrollment> enrollments;
 
 	public Account() {

@@ -1,5 +1,6 @@
 package com.caps.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class TestServiceImpl implements TestService {
 	public List<Enrollment> findEnrollment() {
 		// TODO Auto-generated method stub
 		//return enrollmentDao.findAll();
-		return enrollmentDao.findByIdUserid(2);
+		return enrollmentDao.findByIdUserid(1);
 	}
 
 	@Override

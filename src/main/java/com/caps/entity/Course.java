@@ -2,6 +2,9 @@ package com.caps.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class Course implements Serializable {
 
 	// bi-directional many-to-one association to Enrollment
 	@OneToMany(mappedBy = "course")
+	@JsonIgnore
 	private List<Enrollment> enrollments;
 
 	public Course() {

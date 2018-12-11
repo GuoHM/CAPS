@@ -1,19 +1,14 @@
 $(document).ready(function() {
-
-	var oTableInit = new TableInit();
-	oTableInit.Init();
-
 	var oButtonInit = new ButtonInit();
 	oButtonInit.Init();
-
 });
 
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#demo-table').bootstrapTable({
+		$('#stu-table').bootstrapTable({
 			method : 'get', 
-			url : "/admin/api/listlecturer",
+			url : "/admin/api/enrollment-student",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,59 +36,31 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'id',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'id.userid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'enrollmentDate',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'enrollmentDate'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'grades',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
+				field : 'grades'
 			},{
 				align : "center",
-				title : 'email',
+				title : '',
 				sortable : true,
 				sortable : true,
-				field : 'email'
-			},{
-				align : "center",
-				title : 'phoneNumber',
-				sortable : true,
-				sortable : true,
-				field : 'phoneNumber'
-			},{
-				align : "center",
-				title : 'address',
-				sortable : true,
-				sortable : true,
-				field : 'address'
-			},{
-				align : "center",
-				title : 'password',
-				sortable : true,
-				sortable : true,
-				field : 'password'
-			},{
-				align : "center",
-				title : 'enabled',
-				sortable : true,
-				sortable : true,
-				field : 'enabled'
-			},{
-				align : "center",
-				title : 'type',
-				sortable : true,
-				sortable : true,
-				field : 'type'
-			}],
+				field : 'ID',
+				formatter:actionFormatter
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -104,12 +71,12 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-
+				courseid : $("#course-list").val()
 		};
 		return temp;
 	};
 
-	
+
 	return oTableInit;
 };
 
@@ -119,8 +86,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#btnListCustomer').click(function() {
-			$("#demo-table").bootstrapTable('destroy');
+		$('#submit-course').click(function() {
+			$("#enrollment-table").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})
@@ -130,3 +97,11 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+function actionFormatter(value, row, index) {
+	var id = value;
+	var result = "";
+	result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
+	result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
+	return result;
+}

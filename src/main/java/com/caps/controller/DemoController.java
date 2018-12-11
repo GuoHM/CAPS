@@ -24,9 +24,7 @@ public class DemoController {
 	@ResponseBody
 	public ModelAndView insertCustomers(Model model) {
 		ModelAndView mav = new ModelAndView("index");
-		mav.addObject("Text", testService.findUser());
-		mav.addObject("Text2", testService.findCourse());
-		mav.addObject("Text3", testService.findEnrollment());
+	
 		return mav;
 	}
 	

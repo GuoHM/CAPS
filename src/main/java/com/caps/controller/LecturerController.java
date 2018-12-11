@@ -2,6 +2,7 @@ package com.caps.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.caps.entity.Account;
 import com.caps.entity.Course;
 import com.caps.service.LecturerService;
 
@@ -40,5 +42,12 @@ public class LecturerController {
 	@ResponseBody
 	public List<Course> listCourses(HttpSession httpsession) {
 		return lecturerservice.findCourseByLecturer(httpsession);
+	}
+	
+	@RequestMapping("/api/listenrollment")
+	@ResponseBody
+	public List<Account> listEnrollment(HttpServletRequest request) {
+		int courseid=Integer.parseInt(request.getParameter("courseid"));
+		return lecturerservice.findStudentsByCourseid(courseid);
 	}
 }

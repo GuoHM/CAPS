@@ -32,6 +32,20 @@ public class AdminController {
 		mav.addObject("Text", UserUtil.currentUser(httpSession));
 		return mav;
 	}
+	
+	@RequestMapping("/findlecturer")
+	@ResponseBody
+	public ModelAndView insertCustomers(Model model) {
+		ModelAndView mav = new ModelAndView("admin/Listlecturer");
+	
+		return mav;
+	}
+	
+	@RequestMapping("/api/listlecturer")
+	@ResponseBody
+	public List<Account> listEnrollment() {
+		return adminService.findByType();
+	}
 
 	@RequestMapping("/enrollment")
 	@ResponseBody

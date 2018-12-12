@@ -41,23 +41,32 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'enrollment_date',
+				title : 'CourseID',
 				sortable : true,
-				sortable : true,
-				field : 'enrollmentDate'
-			},{
-				align : "center",
-				title : 'Course ID',
-				visible : true,
 				sortable : true,
 				field : 'course.courseid'
 			},{
 				align : "center",
 				title : 'Course Name',
-				sortable : true,
+				visible : true,
 				sortable : true,
 				field : 'course.courseName'
-			}],
+			},{
+				align : "center",
+				title : 'Enrollment_Date',
+				sortable : true,
+				sortable : true,
+				field : 'enrollmentDate'
+			},{
+				align : "center",
+				title : 'Grades',
+				sortable : true,
+				sortable : true,
+				field : 'grades'
+			}
+			
+	
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -72,7 +81,7 @@ var TableInit = function() {
 		};
 		return temp;
 	};
-
+	
 	
 	return oTableInit;
 };
@@ -94,3 +103,5 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+

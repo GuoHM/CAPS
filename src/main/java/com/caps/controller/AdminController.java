@@ -2,6 +2,8 @@ package com.caps.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +49,16 @@ public class AdminController {
 		return adminService.findByType();
 	}
 
+	@RequestMapping("/deleteErollment/{userid}/{courseid}")
+	@ResponseBody
+	public ModelAndView enrollmentSTUDL(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/admin/enrollment-student");
+		mav.addObject("courseid",request.getParameter("courseid"));
+		mav.addObject("userid",request.getParameter("userid"));
+		
+		return mav;
+	}
+	
 	@RequestMapping("/enrollment")
 	@ResponseBody
 	public ModelAndView enrollment(HttpSession httpSession) {
@@ -57,9 +69,9 @@ public class AdminController {
 	
 	@RequestMapping("/enrollment-student")
 	@ResponseBody
-	public ModelAndView enrollmentSTU(HttpSession httpSession) {
+	public ModelAndView enrollmentSTU(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/admin/enrollment-student");
-		mav.addObject("Text", UserUtil.currentUser(httpSession));
+		mav.addObject("courseid",request.getParameter("courseid"));
 		return mav;
 	}
 	
@@ -71,8 +83,9 @@ public class AdminController {
 	
 	@RequestMapping("/api/enrollment-student")
 	@ResponseBody
-	public List<Enrollment> listEnrollmentStu() {
-		return adminService.findEnrollment();
+	public List<Enrollment> listEnrollmentStu(HttpServletRequest request) {
+		int courseid=Integer.parseInt(request.getParameter("courseid"));
+		return adminService.findEnrollment(courseid);
 	}
 	
 }

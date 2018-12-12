@@ -28,7 +28,7 @@ var TableInit = function() {
 			queryParamsType : "",
 			showRefresh : true, // 是否显示刷新按钮
 			minimumCountColumns : 2, // 最少允许的列数
-			clickToSelect : false, // 是否启用点击选中行
+			clickToSelect : true, // 是否启用点击选中行
 			height : 500, // 行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			// uniqueId: "ID", //每一行的唯一标识，一般为主键列
 			showToggle : true, // 是否显示详细视图和列表视图的切换按钮
@@ -37,10 +37,7 @@ var TableInit = function() {
 			showExport: true,                     //是否显示导出
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
-			columns : [ {
-				checkbox: true,  
-                visible: true                  //是否显示复选框  
-            },{
+			columns : [{
 				align : "center",
 				title : 'courseid',
 				sortable : true,
@@ -86,6 +83,8 @@ var TableInit = function() {
 	};
 
 
+	
+	
 	return oTableInit;
 };
 
@@ -107,10 +106,15 @@ var ButtonInit = function() {
 	return oInit;
 };
 
+var rows = $table.bootstrapTable('getSelections');
+if (rows.length > 0) {
+       ID = rows[0].ID;
+}
+
 function actionFormatter(value, row, index) {
     var id = value;
     var result = "";
-    result += "<a href='/admin/enrollment-student' class='btn btn-xs green' onclick=\"EditViewById('" + id + "', view='view')\" title='Detail'><span class='glyphicon glyphicon-search'></span></a>";
+    result += "<a href='/admin/enrollment-student?courseid="+row.courseid+"' class='btn btn-xs green'  title='Detail'><span class='glyphicon glyphicon-search'></span></a>";
  
     return result;
 }

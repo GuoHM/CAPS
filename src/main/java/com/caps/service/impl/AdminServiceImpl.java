@@ -37,9 +37,9 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Enrollment> findEnrollment() {
+	public List<Enrollment> findEnrollment(int courseid) {
 		// TODO Auto-generated method stub
-		return enrollmentDao.findByIdUserid(1);
+		return enrollmentDao.findByIdCourseid(courseid);
 	}
 
 	@Override

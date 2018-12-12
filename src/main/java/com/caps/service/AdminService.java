@@ -8,6 +8,6 @@ public interface AdminService {
 	List<Course> findAllCourses();	
 	List<Account> findAllLecturers();
 	List<Account> findByType();
-	List<Enrollment> findEnrollment();
+	List<Enrollment> findEnrollment(int courseid);
 
 }

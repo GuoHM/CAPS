@@ -34,7 +34,10 @@ var TableInit = function() {
 			showExport: true,                     //是否显示导出
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
-			columns : [ {
+			columns : [{
+                checkbox: true,  
+                visible: true                  //是否显示复选框  
+            },{
 				align : "center",
 				title : 'id',
 				sortable : true,
@@ -57,8 +60,9 @@ var TableInit = function() {
 				title : '',
 				sortable : true,
 				sortable : true,
-				field : 'ID',
-				formatter:actionFormatter
+				//field : 'ID',
+				events: operateEvents,
+				formatter: operateFormatter
 			}
 			],
 			formatLoadingMessage : function() {
@@ -71,9 +75,32 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				courseid : $("#course-list").val()
+            courseid : $("#courseid").val()
 		};
 		return temp;
+	};
+	function operateFormatter(value, row, index) {
+		return [
+		        '<a class="like" href="javascript:void(0)" title="Edit">',
+		        '<span class="glyphicon glyphicon-cog"></span>',
+		        '</a>',
+		        '<a class="remove" href="javascript:void(0)" title="Remove">',
+		        '<span class="glyphicon glyphicon-remove"></span>',
+		        '</a>'
+		        ].join('');
+	}
+	operateEvents = {
+			'click .like': function (e, value, row, index) {
+				$("#editEnrollmentModal").modal('show');
+				$("#userid").val(row.id.userid);
+				$("#enrollmentDate").val(row.enrollmentDate);
+				$("#grades").val(row.grades);
+			},
+			'click .remove': function (e, value, row, index) {
+				$("#deleteEnrollmentModal").modal('show');
+				var url = 'deleteErollment/'+row.id.userid+'/1';
+				$("#deleteForm").attr('action',url);
+			}
 	};
 
 
@@ -97,11 +124,3 @@ var ButtonInit = function() {
 
 	return oInit;
 };
-
-function actionFormatter(value, row, index) {
-	var id = value;
-	var result = "";
-	result += "<a href='javascript:;' class='btn btn-xs blue' onclick=\"EditViewById('" + id + "')\" title='编辑'><span class='glyphicon glyphicon-pencil'></span></a>";
-	result += "<a href='javascript:;' class='btn btn-xs red' onclick=\"DeleteByIds('" + id + "')\" title='删除'><span class='glyphicon glyphicon-remove'></span></a>";
-	return result;
-}

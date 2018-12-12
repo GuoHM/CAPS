@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-//	var oTableInit = new TableInit();
-//	oTableInit.Init();
+	var oTableInit = new TableInit();
+	oTableInit.Init();
 
 	var oButtonInit = new ButtonInit();
 	oButtonInit.Init();
@@ -11,9 +11,9 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#enrollment-table').bootstrapTable({
+		$('#student-courses').bootstrapTable({
 			method : 'get', 
-			url : "/lecturer/api/listenrollment",
+			url : "/student/api/enrollment",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,23 +41,32 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'UserId',
+				title : 'CourseID',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'course.courseid'
 			},{
 				align : "center",
-				title : 'Name',
+				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'course.courseName'
 			},{
 				align : "center",
-				title : 'Date of Birth',
+				title : 'Enrollment_Date',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
-			}],
+				field : 'enrollmentDate'
+			},{
+				align : "center",
+				title : 'Grades',
+				sortable : true,
+				sortable : true,
+				field : 'grades'
+			}
+			
+	
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -68,12 +77,12 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				courseid : $("#course-list").val()
+
 		};
 		return temp;
 	};
-
-
+	
+	
 	return oTableInit;
 };
 
@@ -83,8 +92,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#submit-course').click(function() {
-			$("#enrollment-table").bootstrapTable('destroy');
+		$('#btnListCustomer').click(function() {
+			$("#student-courses").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})
@@ -94,3 +103,5 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+

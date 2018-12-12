@@ -41,19 +41,19 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'UserId',
+				title : 'userid',
 				sortable : true,
 				sortable : true,
 				field : 'userid'
 			},{
 				align : "center",
-				title : 'Name',
+				title : 'name',
 				visible : true,
 				sortable : true,
 				field : 'name'
 			},{
 				align : "center",
-				title : 'Date of Birth',
+				title : 'dob',
 				sortable : true,
 				sortable : true,
 				field : 'dob'

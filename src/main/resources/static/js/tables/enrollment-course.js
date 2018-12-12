@@ -38,6 +38,9 @@ var TableInit = function() {
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
 			columns : [ {
+				checkbox: true,  
+                visible: true                  //是否显示复选框  
+            },{
 				align : "center",
 				title : 'courseid',
 				sortable : true,

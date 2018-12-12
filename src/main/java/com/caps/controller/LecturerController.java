@@ -7,6 +7,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,12 +16,18 @@ import org.springframework.web.servlet.ModelAndView;
 import com.caps.entity.Account;
 import com.caps.entity.Course;
 import com.caps.service.LecturerService;
+import com.caps.util.UserUtil;
 
 @Controller
 @RequestMapping(value = "/lecturer")
 public class LecturerController {
 	@Autowired
 	LecturerService lecturerservice;
+	
+	@ModelAttribute
+	public void setNavBarLogin(Model model,HttpSession httpsession) {
+		model.addAttribute("login",UserUtil.currentUser(httpsession));
+	}
 
 	@RequestMapping("/welcome")
 	public String login() {

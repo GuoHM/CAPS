@@ -20,7 +20,7 @@ import com.caps.util.UserUtil;
 public class CommonController {
 	
 	@ModelAttribute
-	public void setNavBarLogin(Model model,HttpSession httpsession) {
+	public void setFormEmptyObject(Model model,HttpSession httpsession) {
 		model.addAttribute("login",UserUtil.currentUser(httpsession));
 	}
 	

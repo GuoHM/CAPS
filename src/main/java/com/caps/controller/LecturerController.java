@@ -29,7 +29,7 @@ public class LecturerController {
 	LecturerService lecturerservice;
 
 	@ModelAttribute
-	public void setNavBarLogin(Model model, HttpSession httpsession) {
+	public void setFormEmptyObject(Model model, HttpSession httpsession) {
 		model.addAttribute("login", UserUtil.currentUser(httpsession));
 		model.addAttribute("enrollment", new Enrollment());
 		model.addAttribute("courselist", lecturerservice.findCourseByLecturer(httpsession));

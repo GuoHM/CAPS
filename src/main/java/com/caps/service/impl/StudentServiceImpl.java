@@ -24,7 +24,6 @@ import com.caps.util.UserUtil;
 @Service
 public class StudentServiceImpl implements StudentService {
 
-
 	@Autowired
 	AccountDao userDao;
 	
@@ -44,13 +43,10 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	@Override
-	public List<Enrollment> findByIdUserid(HttpSession httpsession) {
-		
-		String userid = UserUtil.currentUser(httpsession);
-	return enrollmentDao.findByIdUserid(Integer.parseInt(userid));
-	
+	public List<Enrollment> findByIdUserid(HttpSession httpsession) {		
 		// TODO Auto-generated method stub
-		
+		String userid = UserUtil.currentUser(httpsession);
+		return enrollmentDao.findByIdUserid(Integer.parseInt(userid));
 	}
 
 	@Override

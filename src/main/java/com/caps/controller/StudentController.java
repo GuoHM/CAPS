@@ -37,7 +37,10 @@ public class StudentController {
 		return "/student/welcome";
 	}
 	
-	
+	@ModelAttribute
+	public void setFormEmptyObject(Model model, HttpSession httpsession) {
+		model.addAttribute("login", UserUtil.currentUser(httpsession));
+	}
 	
 	
 	@RequestMapping("/student-course")	

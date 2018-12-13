@@ -7,7 +7,6 @@ import com.caps.entity.*;
 
 public interface EnrollmentDao extends JpaRepository<Enrollment, EnrollmentPK> {
 	List<Enrollment> findByIdCourseid(int courseid);
-
 	List<Enrollment> findByIdUserid(int userid);
 	
 	Enrollment findById(EnrollmentPK pk);

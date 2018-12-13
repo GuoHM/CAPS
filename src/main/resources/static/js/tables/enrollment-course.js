@@ -1,20 +1,18 @@
 $(document).ready(function() {
 
-	var oTableInit = new TableInit();
-	oTableInit.Init();
+var oTableInit = new TableInit();
+oTableInit.Init();
 
-	var oButtonInit = new ButtonInit();
-	oButtonInit.Init();
 
 });
 
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#student-courses').bootstrapTable({
-			method : 'get',
-			url : "/student/api/listcourses",
-			toolbar : '#toolbar', // 工具按钮用哪个容器
+		$('#course-table').bootstrapTable({
+			method : 'get', 
+			url : "/admin/api/enrollment-course",
+			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination : true, // 是否显示分页（*）
@@ -25,78 +23,50 @@ var TableInit = function() {
 			pageNumber : 1, // 初始化加载第一页，默认第一页
 			pageSize : 10, // 每页的记录行数（*）
 			pageList : [ 10, 25, 50, 100 ], // 可供选择的每页的行数（*）
-			search : true, // 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+			search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 			strictSearch : true,
 			queryParamsType : "",
 			showRefresh : true, // 是否显示刷新按钮
 			minimumCountColumns : 2, // 最少允许的列数
-			clickToSelect : false, // 是否启用点击选中行
+			clickToSelect : true, // 是否启用点击选中行
 			height : 500, // 行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			// uniqueId: "ID", //每一行的唯一标识，一般为主键列
 			showToggle : true, // 是否显示详细视图和列表视图的切换按钮
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
-			showExport : true, // 是否显示导出
-			exportDataType : "basic", // basic', 'all', 'selected'.
+			showExport: true,                     //是否显示导出
+			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
-			columns : [ {
+			columns : [{
 				align : "center",
-				title : 'Course ID',
+				title : 'courseid',
 				sortable : true,
 				sortable : true,
 				field : 'courseid'
-			}, {
+			},{
 				align : "center",
-				title : 'Course Name',
+				title : 'courseName',
 				visible : true,
 				sortable : true,
 				field : 'courseName'
-			}, {
+			},{
 				align : "center",
-				title : 'Lecture Name',
-				sortable : true,
-				sortable : true,
-				field : 'account.name'
-			}, {
-				align : "center",
-				title : 'Class Size',
-				sortable : true,
-				sortable : true,
-				field : 'classSize'
-			}, {
-				align : "center",
-				title : 'Start Date',
-				sortable : true,
-				sortable : true,
-				field : 'startDate'
-			}, {
-				align : "center",
-				title : 'Course Duration',
-				sortable : true,
-				sortable : true,
-				field : 'duration'
-			}, {
-				align : "center",
-				title : 'Course Status',
+				title : 'courseStatus',
 				sortable : true,
 				sortable : true,
 				field : 'courseStatus'
-			}, {
+			},{
 				align : "center",
-				title : 'Credit',
+				title : 'startDate',
 				sortable : true,
 				sortable : true,
-				field : 'credit'
-
-			}, {
+				field : 'startDate'
+			},{
 				align : "center",
-				title : 'option',
-				visible : true,
-				sortable : false,
-				events : operateEvents,
-				formatter : operateFormatter
-
-			} ],
+				title : '',
+				formatter: actionFormatter
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -107,25 +77,14 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-
+				courseid : $("#course-list").val()
 		};
 		return temp;
 	};
-	function operateFormatter(value, row, index) {
-		return [ '<a class="like" href="javascript:void(0)" title="Edit">',
-				'<span class="glyphicon glyphicon-plus"></span>', '</a>']
-				.join('');
-	}
-	operateEvents = {
-		
-	'click .like': function (e, value, row, index) {	
-		$("#addEnrollmentModal").modal('show');
-		var url = 'addenrollement/' + row.courseid;
-		$("#addForm").attr('action',url);
-		
-	}
-	};
 
+
+	
+	
 	return oTableInit;
 };
 
@@ -135,13 +94,27 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#btnListCustomer').click(function() {
-			$("#student-courses").bootstrapTable('destroy');
+		$('#submit-course').click(function() {
+			$("#course-table").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})
+
 
 	};
 
 	return oInit;
 };
+
+var rows = $table.bootstrapTable('getSelections');
+if (rows.length > 0) {
+       ID = rows[0].ID;
+}
+
+function actionFormatter(value, row, index) {
+    var id = value;
+    var result = "";
+    result += "<a href='/admin/enrollment-student?courseid="+row.courseid+"' class='btn btn-xs green'  title='Detail'><span class='glyphicon glyphicon-search'></span></a>";
+ 
+    return result;
+}

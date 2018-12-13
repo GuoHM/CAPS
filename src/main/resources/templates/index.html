@@ -2,29 +2,52 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head"></head>
 <body>
+	<!--  -->
 	<div class="container" style="margin-top: 21px;">
 		<div th:replace="fragments/navigationbar :: navigationbar"></div>
 		<div class="containner" style="margin-top: 5%;">
-			<div class="row clearfix">
-				<div class="col-xs-2 column">
-					<div th:replace="fragments/lecturer-sidebar :: lecturer-sidebar"></div>
-				</div>
-				<div class="col-xs-10 column">
-					<span th:text="${Text}"></span>
-					</br>
-					<span th:text="${Text2}"></span>
-					</br>
-					<span th:text="${Text3}"></span>
-					<table class="table" id="demo-table"></table>
-				</div>
+
+
+			<img src="/img/campus.png" width="100%" height="450">
+
+
+
+
+			<!-- Example row of columns -->
+			<div class="col-md-4">
+				<h2>News</h2>
+				<p>Keep up to date with the latest news from the school. As the year comes to an end, let's take a look at the key activities that happened in
+					Slytherin for the past year.</p>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Culture</h2>
+				<p>Unpacking the aggregate: What the big picture tells you about the aggregate of the market. Join us on a journey through data analytics.</p>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+				</p>
+			</div>
+			<div class="col-md-4">
+				<h2>Faculties</h2>
+				<p>At Slytherin, we pride ourselves as being at the forefront of educational innovation and we have implemented a range of initiatives to
+					prepare our students for the future.</p>
+				<p>
+					<a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+				</p>
 			</div>
 		</div>
 	</div>
+
+
 	<div th:replace="fragments/footer::footer"></div>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
 	<script type="text/javascript" th:src="@{/js/tables/demo-customers.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>
 	<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
+
 </body>
+
 
 </html>

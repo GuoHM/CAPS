@@ -32,6 +32,9 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	CourseDao courseDao;
 	
+	@Autowired
+	AccountDao accountDao;
+	
 	@Override
 	public List<Course> findAllCourses() {
 		// TODO Auto-generated method stub
@@ -39,6 +42,12 @@ public class AdminServiceImpl implements AdminService{
 //		result.add(userDao.findByUserid(1));
 //		return result;
 		return courseDao.findAll();
+	}
+
+	@Override
+	public List<Enrollment> findEnrollment(int courseid) {
+		// TODO Auto-generated method stub
+		return enrollmentDao.findByIdCourseid(courseid);
 	}
 
 	@Override
@@ -81,6 +90,7 @@ public class AdminServiceImpl implements AdminService{
 		return courseDao.findByCourseid(id);
 	}
 	
+
 	@Override
 	public Enrollment findByEnrollmentId(EnrollmentPK id)
 	{
@@ -100,6 +110,67 @@ public class AdminServiceImpl implements AdminService{
 		return courseDao.findByAccount(account);
 	}
 	
+
+
+	@Override
+	public void removeEnrollment(int userid) {
+		// TODO Auto-generated method stub
+        List<Enrollment> Liste = enrollmentDao.findByIdUserid(userid);
+        for(Enrollment en :Liste) {
+        	enrollmentDao.delete(en);
+        }
+
 	}
 
+	@Override
+	public void updateEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
+		// TODO Auto-generated method stub
+        EnrollmentPK epk = new EnrollmentPK();
+        epk.setCourseid(courseid);
+        epk.setUserid(userid);
+        Enrollment enrollment = enrollmentDao.findOne(epk);
+        enrollment.setGrades(grades);
+        enrollment.setEnrollmentDate(enrollmentDate);
+        enrollmentDao.saveAndFlush(enrollment);
+		
+	}
 
+	@Override
+	public List<Account> findStuNotenroll(int courseid) {
+		// TODO Auto-generated method stub
+
+		List<Account> accounts = accountDao.findByType("ROLE_STUDENT");
+        List<Enrollment> enrollments = enrollmentDao.findByIdCourseid(courseid);
+        for(Account account : accounts ) {
+        	for(Enrollment enrollment:enrollments) {
+        		if(account.equals(enrollment.getAccount())) {;
+        		accounts.remove(account);
+        		}
+        	}
+        	
+        }	
+		return accounts;
+
+	}
+
+	@Override
+	public List<Account> findByType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
+		// TODO Auto-generated method stub
+		Enrollment enrollment = new Enrollment();
+        EnrollmentPK epk = new EnrollmentPK();
+        epk.setCourseid(courseid);
+        epk.setUserid(userid);
+        enrollment.setId(epk);
+        enrollment.setGrades(grades);
+        enrollment.setEnrollmentDate(enrollmentDate);
+		enrollmentDao.saveAndFlush(enrollment);
+		
+	}
+
+}

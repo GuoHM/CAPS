@@ -23,10 +23,10 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
 			response.sendRedirect("/lecturer/lecturer-course");
 			return;
 		} else if (roles.contains("ROLE_STUDENT")) {
-			response.sendRedirect("/student/welcome");
+			response.sendRedirect("/student/student-course");
 			return;
 		} else {
-			response.sendRedirect("/403");
+			response.sendRedirect("/error");
 		}
 
 	}

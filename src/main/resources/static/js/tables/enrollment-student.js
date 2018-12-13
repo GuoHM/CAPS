@@ -1,19 +1,17 @@
 $(document).ready(function() {
-
 	var oTableInit = new TableInit();
 	oTableInit.Init();
-
-	var oButtonInit = new ButtonInit();
-	oButtonInit.Init();
-
+	
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
 });
 
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#enrollment-table').bootstrapTable({
+		$('#stu-table').bootstrapTable({
 			method : 'get', 
-			url : "/lecturer/api/listenrollment",
+			url : "/admin/api/enrollment-student",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -39,50 +37,52 @@ var TableInit = function() {
 			showExport: true,                     //是否显示导出
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
-			columns : [ {
+			columns : [{
 				align : "center",
-				title : 'User ID',
+				title : 'CourseID',
 				sortable : true,
 				sortable : true,
-				field : 'account.userid'
+				field : 'id.courseid'
 			},{
 				align : "center",
-				title : 'Name',
+				title : 'Course Name',
+				visible : true,
+				sortable : true,
+				field : 'course.courseName'
+			},{
+				align : "center",
+				title : 'StudentID',
+				visible : true,
+				sortable : true,
+				field : 'id.userid'
+			},{
+				align : "center",
+				title : 'Student Name',
 				visible : true,
 				sortable : true,
 				field : 'account.name'
 			},{
 				align : "center",
-				title : 'Course ID',
+				title : 'enrollmentDate',
+				visible : true,
 				sortable : true,
-				sortable : true,
-				field : 'course.courseid'
+				field : 'enrollmentDate'
 			},{
 				align : "center",
-				title : 'Course Name',
-				sortable : true,
-				sortable : true,
-				field : 'course.courseName'
-			},{
-				align : "center",
-				title : 'Course Credit',
-				sortable : true,
-				sortable : true,
-				field : 'course.credit'
-			},{
-				align : "center",
-				title : 'Grade',
+				title : 'grades',
 				sortable : true,
 				sortable : true,
 				field : 'grades'
 			},{
 				align : "center",
-				title : 'option',
-				visible : true,
-				sortable : false,
+				title : '',
+				sortable : true,
+				sortable : true,
+				//field : 'ID',
 				events: operateEvents,
 				formatter: operateFormatter
-			}],
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -93,26 +93,42 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				courseid : $("#course-list").val()
+            courseid : $("#courseid").val()
 		};
 		return temp;
 	};
-
 	function operateFormatter(value, row, index) {
 		return [
-		        '<a class="Edit" href="javascript:void(0)" title="Edit">',
+		        '<a class="like" href="javascript:void(0)" title="Edit">',
 		        '<span class="glyphicon glyphicon-cog"></span>',
+		        '</a>',
+		        '<a class="remove" href="javascript:void(0)" title="Remove">',
+		        '<span class="glyphicon glyphicon-remove"></span>',
 		        '</a>'
 		        ].join('');
 	}
 	operateEvents = {
-			'click .Edit': function (e, value, row, index) {
-				$("#editGradeModal").modal('show');
-				$("#userid").val(row.account.userid);
-				$("#courseid").val(row.course.courseid);
-				$("#grades").val(row.grades);
+			'click .like': function (e, value, row, index) {
+				$("#editEnrollmentModal").modal('show');
+				$("#studentnameEdit").val(row.account.name);
+				$("#useridEdit").val(row.id.userid);
+				$("#coursenameEdit").val(row.course.courseName);
+				$("#courseidEdit").val(row.id.courseid);
+				$("#enrollmentDateEdit").val(row.enrollmentDate);
+				$("#gradesEdit").val(row.grades);
+				var date = document.getElementById("enrollmentDateEdit").value;
+				var grades = document.getElementById("gradesEdit").value;
+				var url = 'editErollment/'+row.id.userid+'/'+date+'/'+grades+'/'+row.id.courseid;
+				$("#editForm").attr('action',url);
+			},
+			'click .remove': function (e, value, row, index) {
+				$("#deleteEnrollmentModal").modal('show');
+				var url = 'deleteErollment/'+row.id.userid+'/'+row.id.courseid;
+				$("#deleteForm").attr('action',url);
 			}
 	};
+
+
 	return oTableInit;
 };
 
@@ -122,10 +138,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#submit-course').click(function() {
-			$("#enrollment-table").bootstrapTable('destroy');
-			var oTable = new TableInit();
-			oTable.Init();
+		$('#btn_add').click(function() {
+			$("#addEnrollmentModal").modal('show')
 		})
 
 
@@ -133,3 +147,13 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+function editFunction()
+{
+	var stu = document.getElementById("useridEdit").value;
+	var course = document.getElementById("courseidEdit").value;
+	var date = document.getElementById("enrollmentDateEdit").value;
+	var grades = document.getElementById("gradesEdit").value;
+	var url = 'editErollment/'+stu+'/'+date+'/'+grades+'/'+course;
+	$("#editForm").attr('action',url);
+}

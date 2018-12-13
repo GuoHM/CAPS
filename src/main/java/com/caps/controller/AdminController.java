@@ -41,6 +41,10 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	@ModelAttribute
+	public void setFormEmptyObject(Model model,HttpSession httpsession) {
+		model.addAttribute("login",UserUtil.currentUser(httpsession));
+	}
 	
 	@RequestMapping("/welcome")
 	@ResponseBody

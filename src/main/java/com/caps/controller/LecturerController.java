@@ -9,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.caps.entity.Account;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
 import com.caps.service.LecturerService;
@@ -51,7 +49,7 @@ public class LecturerController {
 		return mav;
 	}
 
-	@RequestMapping(value="/grades",method = RequestMethod.POST)
+	@RequestMapping(value = "/grades", method = RequestMethod.POST)
 	public String setGrades(@RequestParam("userid") String userid, @RequestParam("courseid") String courseid, @RequestParam("grades") String grades) {
 		int user = Integer.parseInt(userid);
 		int course = Integer.parseInt(courseid);

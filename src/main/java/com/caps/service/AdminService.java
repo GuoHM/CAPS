@@ -21,4 +21,12 @@ public interface AdminService {
 	public void delete(int id);
 	public void deleteStudent(int id);
 
+	Enrollment findByEnrollmentId(EnrollmentPK id);
+	List<Enrollment> findEnrollmentByStudentid(int id);
+	public List<Course> findCourseByLecturer(int id);
+	
+
+
+
+
 }

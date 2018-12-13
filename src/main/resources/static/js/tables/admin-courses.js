@@ -50,25 +50,26 @@ var TableInit = function() {
 				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'course_name'
+				field : 'courseName'
 			},{
 				align : "center",
 				title : 'Lecture Name',
 				sortable : true,
 				sortable : true,
 				field : 'account.name'
+				
 			},{
 				align : "center",
 				title : 'Class Size',
 				sortable : true,
 				sortable : true,
-				field : 'class_size'
+				field : 'classSize'
 			},{
 				align : "center",
 				title : 'Start Date',
 				sortable : true,
 				sortable : true,
-				field : 'start_date'
+				field : 'startDate'
 			},{
 				align : "center",
 				title : 'Course Duration',
@@ -80,7 +81,7 @@ var TableInit = function() {
 				title : 'Course Status',
 				sortable : true,
 				sortable : true,
-				field : 'course_status'
+				field : 'courseStatus'
 			},{
 				align : "center",
 				title : 'Credit',
@@ -125,7 +126,7 @@ var TableInit = function() {
 				$("#editCourseModal").modal('show');
 				$("#courserIDEdit").val(row.courseid);
 				$("#courseNameEdit").val(row.courseName);
-				$("#lectureIDEdit").val(row.account.name);
+				$("#lectureIDEdit").val(row.account.userid);
 				$("#classSizeEdit").val(row.classSize);
 				$("#startDateEdit").val(row.startDate);
 				$("#durationEdit").val(row.duration);
@@ -134,7 +135,7 @@ var TableInit = function() {
 			},
 			'click .remove': function (e, value, row, index) {
 				$("#deleteCourseModal").modal('show');
-				var url = 'delete/' + row.courseid;
+				var url = 'deleteCourse/' + row.courseid;
 				$("#deleteForm").attr('action',url);
 			}
 	};

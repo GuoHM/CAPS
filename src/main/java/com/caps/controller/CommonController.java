@@ -36,6 +36,11 @@ public class CommonController {
 		return "index";
 	}
 	
+	@RequestMapping("/faculities")
+	public String faculities() {
+		return "faculities";
+	}
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "login";

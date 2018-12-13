@@ -7,39 +7,39 @@
 		<div th:replace="fragments/navigationbar :: navigationbar"></div>
 
 		<div class="containner" style="margin-top: 5%;">
-<div class="row clearfix">
+		<div class="row clearfix">
 				<div class="col-xs-2 column">
 					<div th:replace="fragments/admin-sidebar :: admin-sidebar"></div>
 				</div>
 				<div class="col-xs-10 column">
-					<h3 class=" col-sm-offset-2 control-label">Add New Student</h3>
-   <form class="form-horizontal" role="form" th:action="@{/admin/NewStudent}" th:object="${student}" method="post" id="student-form">
-    
+					<h3 class=" col-sm-offset-2 control-label">Add New Lecturer</h3>
+
+  <form class="form-horizontal" role="form" th:action="@{/admin/LecturerForm}" th:object="${lecturer}" method="post" id="lecturer-form">
     <div class="form-group">
       <label for="email" class="col-sm-2 control-label">UserID:</label>
       <div class="col-sm-10">
       <input type="text" class="form-control"  placeholder="Enter UserID"  required th:field="*{userid}">
-    </div>
+      </div>
     </div>
     
     <div class="form-group">
       <label for="pwd" class="col-sm-2 control-label">Name:</label>
-       <div class="col-sm-10">
+      <div class="col-sm-10">
       <input type="text" class="form-control" placeholder="Enter Name"  required th:field="*{name}">
-    </div>
+      </div>
     </div>
     
      <div class="form-group">
       <label for="pwd" class="col-sm-2 control-label">Date of Birth:</label>
        <div class="col-sm-10">
-      <input type="text" class="form-control"  placeholder="Enter DOB"  required th:field="*{dob}">
+      <input type="text" class="form-control"  placeholder="Enter DOB YYYY-MM-DD"  required th:field="*{dob}">
     </div>
     </div>
     
      <div class="form-group">
       <label class="col-sm-2 control-label">Email:</label>
        <div class="col-sm-10">
-      <input type="text" class="form-control"  placeholder="Enter Email" required th:field="*{email}">
+      <input type="text" class="form-control"  placeholder="Enter Email roy@gmail.com" required th:field="*{email}">
     </div>
     </div>
     
@@ -63,34 +63,34 @@
       <input type="password" class="form-control" placeholder="Enter Password" required th:field="*{password}">
     </div>
     </div>
-    
     <div class="form-group">
-      <label for="pwd" class="col-sm-2 control-label" >Is Active:</label>
-           <div class="col-sm-10">
-       <input type="text" class="form-control"  placeholder="Active"  th:field="*{enabled}" value="Active">
-    
-       </div>
-       </div>
+      <label for="pwd" class="col-sm-2 control-label">Enabled:</label>
+       <div class="col-sm-10">
+      <input type="text" class="form-control"  placeholder="Enter Enabled" required th:field="*{enabled}">
+    </div>
+    </div>
     
      <div class="form-group">
-      <label for="pwd" class="col-sm-2 control-label">Type of User:</label>
+      <label for="pwd" class="col-sm-2 control-label">Type:</label>
        <div class="col-sm-10">
-        <input type="text" class="form-control"  placeholder="Student"  th:field="*{type}" value="Student">
+      <input type="text" class="form-control"  placeholder="Enter Type" required th:field="*{type}">
     </div>
-      </div>
-       <div class="col-sm-10 col-sm-offset-2 control-label">
-     <button type="submit" class="btn btn-primary " >Add Student</button>
     </div>
+<div class="col-sm-10 col-sm-offset-2 control-label">
 
-   
+			<button type="submit" class="btn btn-primary">Add Lecturer</button>
+			</div>
   </form>
   </div>
+  </div>
+  </div>
+  
+  <div th:replace="fragments/footer::footer"></div>
+  <script type="text/javascript" th:src="@{/js/bootstrapValidator.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/tables/Lecturer-validation.js}"></script>
+  <script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>
+ <script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 </div>
-</div>
-</div>
-	<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
-		<script type="text/javascript" th:src="@{/js/tables/student-form-validation.js}"></script>
-		<script type="text/javascript" th:src="@{/js/bootstrapValidator.min.js}"></script>
-		
+
 </body>
 </html>

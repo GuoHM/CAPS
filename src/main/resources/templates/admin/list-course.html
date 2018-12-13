@@ -7,7 +7,7 @@
 		<div class="containner" style="margin-top: 5%;">
 			<div class="row clearfix">
 				<div class="col-xs-2 column">
-					<div th:replace="fragments/lecturer-sidebar :: lecturer-sidebar"></div>
+					<div th:replace="fragments/admin-sidebar :: admin-sidebar"></div>
 				</div>
 				<div class="col-xs-10 column">
 					
@@ -17,7 +17,7 @@
 		</div>
 	</div>
 	<form class="form-horizontal" role="form" th:action="@{/admin/findCourses}" method="post">
-				<input type="submit" value="list all" class="btn btn-default" id="btnListCustomer">
+				
 			</form>
 		<!-- Edit Modal HTML -->
 			<div id="editCourseModal" class="modal fade" >
@@ -39,7 +39,12 @@
 								</div>
 								<div class="form-group">
 									<label>Lecture ID</label>
-									<textarea class="form-control" required th:field ="*{account}"  id="lectureIDEdit"></textarea>
+									
+							<select th:field ="*{account}" class="form-control" id="lecture-list" style="width:200px" size="1">
+								<option th:each="lecturer:${courselist}" th:value="${lecturer.userid}" th:text="${lecturer.name}" id="lectureIDEdit" ></option>
+							</select>
+						
+								
 								</div>
 								<div class="form-group">
 									<label>Class Size</label>
@@ -93,7 +98,7 @@
 						</form>
 					</div>
 				</div>
-			</div>
+			
 			
 	<div th:replace="fragments/footer::footer"></div>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>

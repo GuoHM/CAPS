@@ -48,11 +48,8 @@ $(document).ready(function() {
 						min: 0,
 						max: 30,
 						message: 'Invalid number'
-					},
-					regexp: {
-						regexp: /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-						message: 'Invalid Class size'
 					}
+					
 				}
 			},
 			startDate: {
@@ -82,10 +79,6 @@ $(document).ready(function() {
 						min: 0,
 						max: 30,
 						message: 'The length should between 0 to 30'
-					},
-					regexp: {
-						regexp:/^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-						message:'Invalid Number'
 					}
 				}
 			},
@@ -115,10 +108,6 @@ $(document).ready(function() {
 							min: 0,
 							max: 4,
 							message: 'The length should between 0 to 2'
-						},
-						regexp: {
-							regexp: /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,
-							message: 'Should only contain alphabets'
 						}
 					}
 				}		

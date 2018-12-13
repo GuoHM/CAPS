@@ -67,8 +67,6 @@ var myTableInit = function() {
 				title : '',
 				sortable : true,
 				sortable : true,
-				//field : 'ID',
-				events: operateEvents,
 				formatter: operateFormatter
 			}],
 			formatLoadingMessage : function() {
@@ -86,21 +84,16 @@ var myTableInit = function() {
 		};
 		return temp;
 	};
+	
 	function operateFormatter(value, row, index) {
+		var courseid = document.getElementById("courseid").value;
+		var url = 'addEnrollment/'+row.userid+'/'+courseid;
 		return [
-		        '<a class="like" href="javascript:void(0)" title="Add">',
-		        '<span class="glyphicon glyphicon-cog"></span>',
+		        '<a class="like" href="'+url+'" title="Add">',
+		        '<span class="glyphicon glyphicon-plus"></span>',
 		        '</a>',
 		        ].join('');
 	}
-	operateEvents = {
-			'click .like': function (e, value, row, index) {
-				var courseid = document.getElementById("courseid").value;
-				var url = 'addEnrollment/'+row.userid+'/'+courseid;
-				$("#addenrollmentForm").attr('action',url);
-			}
-	};
-
 
 	return addTableInit;
 };
@@ -112,30 +105,6 @@ var myButtonInit = function() {
 	var postdata = {};
 
 	addInit.Init = function() {
-//		$('#saveChangesAdd').click(function() {
-//			var url;
-//			var selected = $('#addenrollment-table').bootstrapTable('getSelections');
-//			$.each(selected, function(i, item){    
-//				url+="userid="+item.userid+"&";  
-//			}); 
-//			url = url.replace(" ", "");
-//			url = url.substr(0, url.length - 1);  
-//			alert(url);
-//			$.ajax({
-//                cache: true,
-//                type: "POST",
-//                url:'/admin/addenrollment',
-//                data:url,
-//                async: false,
-//                error: function(request) {
-//                    alert(url+"    error");
-//                },
-//                success: function(data) {
-//                	alert(url+"    success");
-//                }
-//            });
-//		});
-
 	}
 	return addInit;
 };

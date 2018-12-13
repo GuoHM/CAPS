@@ -114,18 +114,20 @@ public class AdminServiceImpl implements AdminService{
 	public List<Account> findStuNotenroll(int courseid) {
 		// TODO Auto-generated method stub
 
-		List<Account> accounts = accountDao.findByType("ROLE_STUDENT");
+		List<Account> accounts = accountDao.findByType("student");
         List<Enrollment> enrollments = enrollmentDao.findByIdCourseid(courseid);
-        for(Account account : accounts ) {
-        	for(Enrollment enrollment:enrollments) {
+        for(int i = 0;i<enrollments.size();i++ ) {
+        	Enrollment enrollment = enrollments.get(i);
+        	for(int j =0;j<accounts.size();j++) {
+        		Account account = accounts.get(j);
         		if(account.equals(enrollment.getAccount())) {;
         		accounts.remove(account);
+        		break;
         		}
         	}
         	
         }	
 		return accounts;
-
 	}
 
 	@Override

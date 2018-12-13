@@ -12,6 +12,7 @@ import com.caps.dao.EnrollmentDao;
 import com.caps.dao.AccountDao;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
+import com.caps.entity.EnrollmentPK;
 import com.caps.entity.Account;
 import com.caps.service.AdminService;
 
@@ -28,6 +29,9 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	CourseDao courseDao;
 	
+	@Autowired
+	AccountDao accountDao;
+	
 	@Override
 	public List<Course> findAllCourses() {
 		// TODO Auto-generated method stub
@@ -35,6 +39,12 @@ public class AdminServiceImpl implements AdminService{
 //		result.add(userDao.findByUserid(1));
 //		return result;
 		return courseDao.findAll();
+	}
+
+	@Override
+	public List<Enrollment> findEnrollment(int courseid) {
+		// TODO Auto-generated method stub
+		return enrollmentDao.findByIdCourseid(courseid);
 	}
 
 	@Override
@@ -76,6 +86,50 @@ public class AdminServiceImpl implements AdminService{
 	{
 		return courseDao.findByCourseid(id);
 	}
+	
+
+	@Override
+	public void removeEnrollment(int userid) {
+		// TODO Auto-generated method stub
+        List<Enrollment> Liste = enrollmentDao.findByIdUserid(userid);
+        for(Enrollment en :Liste) {
+        	enrollmentDao.delete(en);
+        }
 	}
 
+	@Override
+	public void updateEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
+		// TODO Auto-generated method stub
+        EnrollmentPK epk = new EnrollmentPK();
+        epk.setCourseid(courseid);
+        epk.setUserid(userid);
+        Enrollment enrollment = enrollmentDao.findOne(epk);
+        enrollment.setGrades(grades);
+        enrollment.setEnrollmentDate(enrollmentDate);
+        enrollmentDao.saveAndFlush(enrollment);
+		
+	}
 
+	@Override
+	public List<Account> findStuNotenroll(int courseid) {
+		// TODO Auto-generated method stub
+		List<Account> account = accountDao.findByType("ROLE_STUDENT");
+		for(Account a : account) {
+		   List<Course> courses = a.getCourses();
+		   for(Course course:courses) {
+			   int thisid =course.getCourseid();
+			   if(thisid == courseid) {
+				   account.remove(a);
+			   }
+		   }
+		}
+		return account;
+	}
+
+	@Override
+	public List<Account> findByType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

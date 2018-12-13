@@ -44,19 +44,19 @@ var TableInit = function() {
 				title : 'enrollment_date',
 				sortable : true,
 				sortable : true,
-				field : 'enrollment_date'
+				field : 'enrollmentDate'
 			},{
 				align : "center",
 				title : 'Course ID',
 				visible : true,
 				sortable : true,
-				field : 'courseid'
+				field : 'course.courseid'
 			},{
 				align : "center",
-				title : 'Grades',
+				title : 'Course Name',
 				sortable : true,
 				sortable : true,
-				field : 'grades'
+				field : 'course.courseName'
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";

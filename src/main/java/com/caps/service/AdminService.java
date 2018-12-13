@@ -7,6 +7,7 @@ import com.caps.entity.*;
 public interface AdminService {
 	List<Course> findAllCourses();	
 	List<Account> findAllLecturers();
+	List<Account> findStuNotenroll(int courseid);
 	List<Account> findByType();
 	List<Enrollment> findEnrollment(int courseid);
     void removeEnrollment(int userid);

@@ -52,19 +52,17 @@ public class AdminController {
 	}
 
 	@RequestMapping(value="/editErollment/{userid}/{enrollmentDate}/{grades}/{courseid}", method = RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView enrollmentSTUED(@PathVariable String userid,@PathVariable String enrollmentDate,@PathVariable String grades,@PathVariable String courseid) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
 		mav.addObject("courseid",courseid);
 		mav.addObject("userid",userid);
-		//mav.addObject("enrollmentDate",enrollmentDate);
-		//mav.addObject("grades",grades);
-		adminService.updateEnrollment(2,2,2, "2018-10-10");
+		mav.addObject("enrolldate", enrollmentDate);
+		mav.addObject("grades", grades);
+		adminService.updateEnrollment(Integer.parseInt(courseid),Integer.parseInt(userid), Integer.parseInt(grades), enrollmentDate);
 		return mav;
 	}
 	
 	@RequestMapping(value="/deleteErollment/{userid}/{courseid}", method = RequestMethod.GET)
-	@ResponseBody
 	public ModelAndView enrollmentSTUDL(@PathVariable String userid,@PathVariable String courseid) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
 		mav.addObject("courseid",courseid);
@@ -73,8 +71,14 @@ public class AdminController {
 		return mav;
 	}
 	
+	@RequestMapping("/addenrollment")
+	public ModelAndView addenrollment(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment");
+		mav.addObject("userid", request.getParameter("userid"));
+		return mav;
+	}
+	
 	@RequestMapping("/enrollment")
-	@ResponseBody
 	public ModelAndView enrollment(HttpSession httpSession) {
 		ModelAndView mav = new ModelAndView("/admin/enrollment-course");
 		mav.addObject("Text", UserUtil.currentUser(httpSession));
@@ -82,7 +86,6 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/enrollment-student")
-	@ResponseBody
 	public ModelAndView enrollmentSTU(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/admin/enrollment-student");
 		mav.addObject("courseid",request.getParameter("courseid"));
@@ -100,6 +103,14 @@ public class AdminController {
 	public List<Enrollment> listEnrollmentStu(HttpServletRequest request) {
 		int courseid=Integer.parseInt(request.getParameter("courseid"));
 		return adminService.findEnrollment(courseid);
+	}
+	
+	@RequestMapping("/api/enrollment-stuList")
+	@ResponseBody
+	public List<Account> listEnrollmentStud(HttpServletRequest request) {
+		int courseid=Integer.parseInt(request.getParameter("courseid"));
+        List<Account> ac = adminService.findStuNotenroll(courseid);
+        return ac;   
 	}
 	
 }

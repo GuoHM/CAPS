@@ -110,12 +110,14 @@ var TableInit = function() {
 	operateEvents = {
 			'click .like': function (e, value, row, index) {
 				$("#editEnrollmentModal").modal('show');
-				$("#studentname").val(row.account.name);
-				$("#coursename").val(row.course.courseName);
-				$("#enrollmentDate").val(row.enrollmentDate);
-				$("#grades").val(row.grades);
-				var date = document.getElementById("enrollmentDate").value;
-				var grades = document.getElementById("grades").value;
+				$("#studentnameEdit").val(row.account.name);
+				$("#useridEdit").val(row.id.userid);
+				$("#coursenameEdit").val(row.course.courseName);
+				$("#courseidEdit").val(row.id.courseid);
+				$("#enrollmentDateEdit").val(row.enrollmentDate);
+				$("#gradesEdit").val(row.grades);
+				var date = document.getElementById("enrollmentDateEdit").value;
+				var grades = document.getElementById("gradesEdit").value;
 				var url = 'editErollment/'+row.id.userid+'/'+date+'/'+grades+'/'+row.id.courseid;
 				$("#editForm").attr('action',url);
 			},
@@ -148,10 +150,10 @@ var ButtonInit = function() {
 
 function editFunction()
 {
-	var stu = document.getElementById("studentname").value;
-	var course = document.getElementById("coursename").value;
-	var date = document.getElementById("enrollmentDate").value;
-	var grades = document.getElementById("grades").value;
+	var stu = document.getElementById("useridEdit").value;
+	var course = document.getElementById("courseidEdit").value;
+	var date = document.getElementById("enrollmentDateEdit").value;
+	var grades = document.getElementById("gradesEdit").value;
 	var url = 'editErollment/'+stu+'/'+date+'/'+grades+'/'+course;
 	$("#editForm").attr('action',url);
 }

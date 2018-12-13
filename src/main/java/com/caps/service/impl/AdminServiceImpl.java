@@ -28,6 +28,9 @@ public class AdminServiceImpl implements AdminService{
 	@Autowired
 	CourseDao courseDao;
 	
+	@Autowired
+	AccountDao accountDao;
+	
 	@Override
 	public List<Course> findAllCourses() {
 		// TODO Auto-generated method stub
@@ -75,7 +78,26 @@ public class AdminServiceImpl implements AdminService{
         epk.setCourseid(courseid);
         epk.setUserid(userid);
         Enrollment enrollment = enrollmentDao.findOne(epk);
+        enrollment.setGrades(grades);
+        enrollment.setEnrollmentDate(enrollmentDate);
+        enrollmentDao.saveAndFlush(enrollment);
 		
+	}
+
+	@Override
+	public List<Account> findStuNotenroll(int courseid) {
+		// TODO Auto-generated method stub
+		List<Account> account = accountDao.findByType("student");
+		for(Account a : account) {
+		   List<Course> courses = a.getCourses();
+		   for(Course course:courses) {
+			   int thisid =course.getCourseid();
+			   if(thisid == courseid) {
+				   account.remove(a);
+			   }
+		   }
+		}
+		return account;
 	}
 
 }

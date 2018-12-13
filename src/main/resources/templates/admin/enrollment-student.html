@@ -35,19 +35,26 @@
 					<div class="modal-body">
 						<div class="form-group">
 							<label>Student Name</label> <input type="text" class="form-control"
-								required id="studentname" readonly="readonly">
+								required id="studentnameEdit" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>Student ID</label> <input type="text" class="form-control"
+								required id="useridEdit" readonly="readonly">
 						</div>
 						<div class="form-group">
 							<label>Course Name</label> <input type="text" class="form-control"
-								required id="coursename" readonly="readonly">
+								required id="coursenameEdit" readonly="readonly">
 						</div>
 						<div class="form-group">
-							<label>Enroll Date</label> <input type="text"
-								class="form-control" required id="enrollmentDate" onchange="editFunction()">
+							<label>Course ID</label> <input type="text" class="form-control"
+								required id="courseidEdit" readonly="readonly">
 						</div>
+						
 						<div class="form-group">
 							<label>Grades</label> <input type="text" class="form-control"
-								required id="grades"  onchange="editFunction(this.value)">
+								required id="gradesEdit"  onchange="editFunction()">
+						</div><div class="form-group">
+							<label>Enroll Date</label> <input type="text" class="form-control" required id="enrollmentDateEdit" onchange="editFunction()">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -84,31 +91,21 @@
 			</div>
 		</div>
 	</div>
-	<a data-toggle="modal" href="/demo/api/enrollment" data-target="#addEnrollmentModal">click</a>
 	<!-- addEnrollment Modal HTML -->
 	<div id="addEnrollmentModal" class="modal fade">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<form>
+				<form id = "addenrollmentForm">
 					<div class="modal-header">
 						<h4 class="modal-title">Add Student</h4>
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 					</div>
 					<div class="modal-body">
-					<div class="col-xs-10 column">
-					<table class="table" id="enrollment-table" style="width: 100%;"></table>
-					<thead>
-							<tr>
-								<th style="width: 150px; text-align: center;">1</th>
-								<th style="width: 150px; text-align: center;">2</th>
-								<th style="width: 150px; text-align: center;">3</th>
-							</tr>
-					</thead>
+					<table class="table" id="addenrollment-table"></table>
 					</div>
-	                </div>
-			        <div class="modal-footer">
+					<div class="modal-footer">
 						<input type="button" class="btn btn-default" data-dismiss="modal"value="Cancel">
-						<input type="submit" class="btn btn-info"alue="Save">
+						<input type="submit" class="btn btn-default" value="Save" id="saveChangesAdd">
 					</div>
 				</form>
 			</div>
@@ -117,10 +114,10 @@
 
 
 	<div th:replace="fragments/footer::footer"></div>
-	<script type="text/javascript"th:src="@{/js/tables/show-student-list.js}"></script>
+	<script type="text/javascript" th:src="@{/js/tables/show-student-list.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
-	<script type="text/javascript"th:src="@{/js/tables/enrollment-student.js}"></script>
-	<script type="text/javascript"th:src="@{/js/bootstrap-table-export.js}"></script>
+	<script type="text/javascript" th:src="@{/js/tables/enrollment-student.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>
 	<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
 
 </body>

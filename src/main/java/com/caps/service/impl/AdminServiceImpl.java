@@ -113,7 +113,8 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Account> findStuNotenroll(int courseid) {
 		// TODO Auto-generated method stub
-		List<Account> accounts = accountDao.findByType("student");
+
+		List<Account> accounts = accountDao.findByType("ROLE_STUDENT");
         List<Enrollment> enrollments = enrollmentDao.findByIdCourseid(courseid);
         for(Account account : accounts ) {
         	for(Enrollment enrollment:enrollments) {
@@ -124,6 +125,7 @@ public class AdminServiceImpl implements AdminService{
         	
         }	
 		return accounts;
+
 	}
 
 	@Override

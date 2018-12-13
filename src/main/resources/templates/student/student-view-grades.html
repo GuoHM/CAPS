@@ -17,7 +17,8 @@
 							<div class="panel-heading">GPA</div>
 							<div class="panel-body center">
 								<div th:href="@{/student/student-view-grades}">
-									<h3 th:text="${GPA}"></h3>
+									<h3 th:text="${#numbers.formatDecimal(GPA, 0, 2)}"></h3>
+									
 								</div>
 							</div>
 						</div>

@@ -11,10 +11,10 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#student-courses').bootstrapTable({
-			method : 'get',
-			url : "/student/api/listcourses",
-			toolbar : '#toolbar', // 工具按钮用哪个容器
+		$('#student-addcourse').bootstrapTable({
+			method : 'get', 
+			url : "/student/api/addcourse",
+			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
 			pagination : true, // 是否显示分页（*）
@@ -25,7 +25,7 @@ var TableInit = function() {
 			pageNumber : 1, // 初始化加载第一页，默认第一页
 			pageSize : 10, // 每页的记录行数（*）
 			pageList : [ 10, 25, 50, 100 ], // 可供选择的每页的行数（*）
-			search : true, // 是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+			search: true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 			strictSearch : true,
 			queryParamsType : "",
 			showRefresh : true, // 是否显示刷新按钮
@@ -36,67 +36,58 @@ var TableInit = function() {
 			showToggle : true, // 是否显示详细视图和列表视图的切换按钮
 			cardView : false, // 是否显示详细视图
 			detailView : false, // 是否显示父子表
-			showExport : true, // 是否显示导出
-			exportDataType : "basic", // basic', 'all', 'selected'.
+			showExport: true,                     //是否显示导出
+			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
 			columns : [ {
 				align : "center",
 				title : 'Course ID',
 				sortable : true,
 				sortable : true,
-				field : 'courseid'
-			}, {
+				field : 'course.courseid'
+			},{
 				align : "center",
 				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'courseName'
-			}, {
+				field : 'course.coursename'
+			},{
 				align : "center",
-				title : 'Lecture Name',
+				title : 'Lecturer Name',
+				visible : true,
 				sortable : true,
-				sortable : true,
-				field : 'account.name'
-			}, {
+				field : 'course.courseid'
+			},{
 				align : "center",
 				title : 'Class Size',
+				visible : true,
 				sortable : true,
-				sortable : true,
-				field : 'classSize'
-			}, {
+				field : 'course.courseid'
+			},{
 				align : "center",
 				title : 'Start Date',
 				sortable : true,
 				sortable : true,
-				field : 'startDate'
-			}, {
+				field : 'enrollmentDate'
+			},{
 				align : "center",
-				title : 'Course Duration',
+				title : 'Duration',
 				sortable : true,
 				sortable : true,
 				field : 'duration'
-			}, {
+			},{
 				align : "center",
 				title : 'Course Status',
 				sortable : true,
 				sortable : true,
-				field : 'courseStatus'
-			}, {
+				field : 'duration'
+			},{
 				align : "center",
-				title : 'Credit',
+				title : 'Credits',
 				sortable : true,
 				sortable : true,
-				field : 'credit'
-
-			}, {
-				align : "center",
-				title : 'option',
-				visible : true,
-				sortable : false,
-				events : operateEvents,
-				formatter : operateFormatter
-
-			} ],
+				field : 'credits'
+			}],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -111,21 +102,8 @@ var TableInit = function() {
 		};
 		return temp;
 	};
-	function operateFormatter(value, row, index) {
-		return [ '<a class="like" href="javascript:void(0)" title="Edit">',
-				'<span class="glyphicon glyphicon-plus"></span>', '</a>']
-				.join('');
-	}
-	operateEvents = {
-		
-	'click .like': function (e, value, row, index) {	
-		$("#addEnrollmentModal").modal('show');
-		var url = 'addenrollement/' + row.courseid;
-		$("#addForm").attr('action',url);
-		
-	}
-	};
 
+	
 	return oTableInit;
 };
 
@@ -136,10 +114,11 @@ var ButtonInit = function() {
 	oInit.Init = function() {
 		// button
 		$('#btnListCustomer').click(function() {
-			$("#student-courses").bootstrapTable('destroy');
+			$("#student-addcourse").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})
+
 
 	};
 

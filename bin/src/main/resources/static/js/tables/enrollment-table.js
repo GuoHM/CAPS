@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
-//	var oTableInit = new TableInit();
-//	oTableInit.Init();
+	var oTableInit = new TableInit();
+	oTableInit.Init();
 
 	var oButtonInit = new ButtonInit();
 	oButtonInit.Init();
@@ -41,22 +41,47 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'User ID',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'account.userid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'Name',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'account.name'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'Course ID',
 				sortable : true,
 				sortable : true,
-				field : 'dob'
+				field : 'course.courseid'
+			},{
+				align : "center",
+				title : 'Course Name',
+				sortable : true,
+				sortable : true,
+				field : 'course.courseName'
+			},{
+				align : "center",
+				title : 'Course Credit',
+				sortable : true,
+				sortable : true,
+				field : 'course.credit'
+			},{
+				align : "center",
+				title : 'Grade',
+				sortable : true,
+				sortable : true,
+				field : 'grades'
+			},{
+				align : "center",
+				title : 'option',
+				visible : true,
+				sortable : false,
+				events: operateEvents,
+				formatter: operateFormatter
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";
@@ -73,7 +98,21 @@ var TableInit = function() {
 		return temp;
 	};
 
-
+	function operateFormatter(value, row, index) {
+		return [
+		        '<a class="Edit" href="javascript:void(0)" title="Edit">',
+		        '<span class="glyphicon glyphicon-cog"></span>',
+		        '</a>'
+		        ].join('');
+	}
+	operateEvents = {
+			'click .Edit': function (e, value, row, index) {
+				$("#editGradeModal").modal('show');
+				$("#userid").val(row.account.userid);
+				$("#courseid").val(row.course.courseid);
+				$("#grades").val(row.grades);
+			}
+	};
 	return oTableInit;
 };
 

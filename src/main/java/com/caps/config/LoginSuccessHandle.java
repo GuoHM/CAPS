@@ -17,7 +17,7 @@ public class LoginSuccessHandle implements AuthenticationSuccessHandler {
 
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
 		if (roles.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/admin/welcome");
+			response.sendRedirect("/admin/findCourses");
 			return;
 		} else if (roles.contains("ROLE_LECTURER")) {
 			response.sendRedirect("/lecturer/lecturer-course");

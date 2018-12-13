@@ -57,6 +57,17 @@ var TableInit = function() {
 				sortable : true,
 				sortable : true,
 				field : 'course.courseName'
+			},
+			{
+				align : "center",
+				title : 'option',
+				visible : true,
+				sortable : false,
+				events: operateEvents,
+				formatter: operateFormatter
+			
+	
+						
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";
@@ -72,7 +83,21 @@ var TableInit = function() {
 		};
 		return temp;
 	};
-
+	function operateFormatter(value, row, index) {
+		return [
+		        '<a class="remove" href="javascript:void(0)" title="Remove">',
+		        '<span class="glyphicon glyphicon-remove"></span>',
+		        '</a>'
+		        ].join('');
+	}
+	operateEvents = {
+			
+			'click .remove': function (e, value, row, index) {
+				$("#deleteEnrollmentModal").modal('show');
+				var url = 'delete/' + row.course.courseid + '/' +row.account.userid;
+				$("#deleteForm").attr('action',url);
+			}
+	};
 	
 	return oTableInit;
 };

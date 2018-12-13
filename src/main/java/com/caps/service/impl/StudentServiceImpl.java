@@ -3,6 +3,7 @@ package com.caps.service.impl;
 import javax.servlet.http.HttpSession;
 
 import com.caps.entity.Enrollment;
+import com.caps.entity.EnrollmentPK;
 import com.caps.service.StudentService;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public Enrollment createStudent(Enrollment e) {
 		// TODO Auto-generated method stub
+		enrollmentDao.save(e);
 		return null;
 	}
 
@@ -62,6 +64,21 @@ public class StudentServiceImpl implements StudentService {
 	public void removeStudent(Enrollment e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void Delete(EnrollmentPK e) {
+		// TODO Auto-generated method stub
+		
+		enrollmentDao.delete(e);
+	}
+	@Override
+	public List<Course> findAllCourses() {
+		// TODO Auto-generated method stub
+//		List<Account> result = new ArrayList<Account>();
+//		result.add(userDao.findByUserid(1));
+//		return result;
+		return courseDao.findAll();
 	}
 
 }

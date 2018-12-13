@@ -1,11 +1,11 @@
 $(document).ready(function() {
-	$('#student-form').bootstrapValidator({
+	$('#lecturer-form').bootstrapValidator({
 		feedbackIcons: {
 			valid: 'glyphicon glyphicon-ok',
 			invalid: 'glyphicon glyphicon-remove',
 			validating: 'glyphicon glyphicon-refresh'
 		},
-		fields: {/*rules*/
+		fields: {
 			userid: {
 				message: 'Invalid ID',
 				validators: {
@@ -14,8 +14,8 @@ $(document).ready(function() {
 					},
 					stringLength: {
 						min: 0,
-						max:10 ,
-						message: 'The length should between 0 to 10'
+						max: 3,
+						message: 'The length should between 0 to 3'
 					}
 
 				}

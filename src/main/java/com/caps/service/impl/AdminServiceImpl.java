@@ -4,6 +4,8 @@ package com.caps.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +14,10 @@ import com.caps.dao.EnrollmentDao;
 import com.caps.dao.AccountDao;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
+import com.caps.entity.EnrollmentPK;
 import com.caps.entity.Account;
 import com.caps.service.AdminService;
+import com.caps.util.UserUtil;
 
 
 @Service
@@ -76,6 +80,26 @@ public class AdminServiceImpl implements AdminService{
 	{
 		return courseDao.findByCourseid(id);
 	}
+	
+	@Override
+	public Enrollment findByEnrollmentId(EnrollmentPK id)
+	{
+		return enrollmentDao.findById(id);
+	}
+	@Override
+	public List<Enrollment> findEnrollmentByStudentid(int id) {
+		// TODO Auto-generated method stub
+		return enrollmentDao.findByIdUserid(id);
+	}
+	
+	@Override
+	public List<Course> findCourseByLecturer(int id) {
+		// TODO Auto-generated method stub
+		
+		Account account = userDao.findByUserid(id);
+		return courseDao.findByAccount(account);
+	}
+	
 	}
 
 

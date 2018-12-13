@@ -11,4 +11,6 @@ public interface EnrollmentDao extends JpaRepository<Enrollment, EnrollmentPK> {
 	List<Enrollment> findByIdUserid(int userid);
 	
 	Enrollment findById(EnrollmentPK pk);
+	
+
 }

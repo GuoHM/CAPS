@@ -12,6 +12,7 @@ import com.caps.dao.EnrollmentDao;
 import com.caps.dao.AccountDao;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
+import com.caps.entity.EnrollmentPK;
 import com.caps.entity.Account;
 import com.caps.service.AdminService;;
 
@@ -70,16 +71,10 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void updateEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
 		// TODO Auto-generated method stub
-		List<Enrollment> eList = enrollmentDao.findByIdUserid(userid);
-		Enrollment e = eList.iterator().next();
-		for(Enrollment en :eList) {
-			int id = en.getCourse().getCourseid();
-			if(id==courseid) {
-				e=en;
-			}
-		}
-		e.setEnrollmentDate(enrollmentDate);
-		e.setGrades(grades);
+        EnrollmentPK epk = new EnrollmentPK();
+        epk.setCourseid(courseid);
+        epk.setUserid(userid);
+        Enrollment enrollment = enrollmentDao.findOne(epk);
 		
 	}
 

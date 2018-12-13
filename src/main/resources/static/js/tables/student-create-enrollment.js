@@ -113,7 +113,7 @@ var TableInit = function() {
 	};
 	function operateFormatter(value, row, index) {
 		return [ '<a class="like" href="javascript:void(0)" title="Edit">',
-				'<span class="glyphicon glyphicon-cog"></span>', '</a>']
+				'<span class="glyphicon glyphicon-plus"></span>', '</a>']
 				.join('');
 	}
 	operateEvents = {

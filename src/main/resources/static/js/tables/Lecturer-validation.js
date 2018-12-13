@@ -14,8 +14,8 @@ $(document).ready(function() {
 					},
 					stringLength: {
 						min: 0,
-						max: 3,
-						message: 'The length should between 0 to 3'
+						max: 10,
+						message: 'The length should between 0 to 10'
 					}
 
 				}

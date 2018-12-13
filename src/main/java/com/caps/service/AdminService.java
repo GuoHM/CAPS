@@ -25,6 +25,8 @@ public interface AdminService {
 	List<Enrollment> findEnrollmentByStudentid(int id);
 	public List<Course> findCourseByLecturer(int id);
 	
+	public Accountrole insertOrUpdateRole(Accountrole account);
+	
 
 
 

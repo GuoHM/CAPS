@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,7 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.caps.dao.AccountRoleDao;
+import com.caps.dao.CourseDao;
+import com.caps.dao.EnrollmentDao;
 import com.caps.entity.Account;
+import com.caps.entity.Accountrole;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
 import com.caps.entity.EnrollmentPK;
@@ -36,6 +41,14 @@ public class AdminController {
 
 	@Autowired
 	StudentService studentService;
+	@Autowired
+	EnrollmentDao enrollmentDao;
+
+	@Autowired
+	AccountRoleDao accountRoleDao;
+
+	@Autowired
+	CourseDao courseDao;
 
 	@ModelAttribute
 	public void setFormEmptyObject(Model model, HttpSession httpsession) {
@@ -64,7 +77,7 @@ public class AdminController {
 	public ModelAndView displayCourses(Model model) {
 		ModelAndView mav = new ModelAndView("/admin/list-course");
 		mav.addObject("course", new Course());
-		mav.addObject("courselist", adminService.findByType("lecturer"));
+		mav.addObject("courselist", adminService.findByType("ROLE_LECTURER"));
 		return mav;
 	}
 
@@ -81,7 +94,7 @@ public class AdminController {
 	public ModelAndView addCourse(Model model) {
 		ModelAndView mav = new ModelAndView("admin/add-course");
 		model.addAttribute("course", new Course());
-		mav.addObject("courselist", adminService.findByType("lecturer"));
+		mav.addObject("courselist", adminService.findByType("ROLE_LECTURER"));
 
 		return mav;
 	}
@@ -96,22 +109,27 @@ public class AdminController {
 	}
 
 	@RequestMapping(value = "/deleteCourse/{courseID}", method = RequestMethod.GET)
-	public ModelAndView deleteCourse(@PathVariable String courseID, final RedirectAttributes redirectAttributes, HttpSession httpsession) {
-		Course course = adminService.findByCourseId(Integer.parseInt(courseID));
+	public ModelAndView deleteCourse(@PathVariable String courseID, final RedirectAttributes redirectAttributes,
+			HttpSession httpsession) {
+		/*Course course = adminService.findByCourseId(Integer.parseInt(courseID));
 		EnrollmentPK e = new EnrollmentPK();
 		String userid = UserUtil.currentUser(httpsession);
 		e.setCourseid(Integer.parseInt(courseID));
 		e.setUserid(Integer.parseInt(userid));
 		Enrollment en = adminService.findByEnrollmentId(e);
-		if (en.getCourse().getCourseid() == Integer.parseInt(courseID)) {
-			studentService.Delete(e);
+		System.out.println(en.getCourse().getCourseid());*/
+		List<Enrollment> enrollment = enrollmentDao.findByIdCourseid(Integer.parseInt(courseID));
+		if(!enrollment.isEmpty())
+		{
+			for (Enrollment e : enrollment) {
+				enrollmentDao.delete(e);
 		}
-
+		}
 		adminService.delete(Integer.parseInt(courseID));
 		ModelAndView mav = new ModelAndView("redirect:/admin/findCourses");
 
-		String message = "The Course " + course.getCourseName() + " was successfully deleted.";
-		redirectAttributes.addFlashAttribute("message", message);
+		//String message = "The Course " + course.getCourseName() + " was successfully deleted.";
+		//redirectAttributes.addFlashAttribute("message", message);
 		return mav;
 	}
 
@@ -122,12 +140,13 @@ public class AdminController {
 		List<Enrollment> enrollment = adminService.findEnrollmentByStudentid(Integer.parseInt(studentID));
 		for (Enrollment es : enrollment) {
 			// result.add(userDao.findByUserid(e.getId().getUserid()));
-			e.setUserid(Integer.parseInt(studentID));
+			/*e.setUserid(Integer.parseInt(studentID));
 			e.setCourseid(es.getCourse().getCourseid());
 			System.out.println(es.getCourse().getCourseid());
-			studentService.Delete(e);
+			studentService.Delete(e);*/
+			enrollmentDao.delete(es);
 		}
-
+		accountRoleDao.delete(Integer.parseInt(studentID));
 		adminService.deleteStudent(Integer.parseInt(studentID));
 		ModelAndView mav = new ModelAndView("redirect:/admin/findstudents");
 		return mav;
@@ -145,9 +164,16 @@ public class AdminController {
 
 	@PostMapping("/NewStudent")
 	public ModelAndView insertStudent(@ModelAttribute Account account) {
-		// DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-		// course.setStartDate(df.parse(course.getStartDate()));
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
+		account.setType("ROLE_STUDENT");
+		account.setEnabled("true");
+		Accountrole a = new Accountrole();
+		a.setUserid(account.getUserid());
+		a.setAuthority("ROLE_STUDENT");
 		adminService.insertOrUpdate(account);
+		adminService.insertOrUpdateRole(a);
+
 		ModelAndView mav = new ModelAndView("/admin/add-student");
 		mav.addObject("student", new Account());
 		return mav;
@@ -161,7 +187,7 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("/admin/list-course");
 		// mav.addObject("course", course);
 		mav.addObject("course", new Course());
-		mav.addObject("courselist", adminService.findByType("lecturer"));
+		mav.addObject("courselist", adminService.findByType("ROLE_LECTURER"));
 		return mav;
 	}
 
@@ -169,7 +195,15 @@ public class AdminController {
 	public ModelAndView updateStudent(@ModelAttribute Account account) {
 		// DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 		// course.setStartDate(df.parse(course.getStartDate()));
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		account.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
+		account.setType("ROLE_STUDENT");
+		account.setEnabled("true");
+		Accountrole a = new Accountrole();
+		a.setUserid(account.getUserid());
+		a.setAuthority("ROLE_STUDENT");
 		adminService.insertOrUpdate(account);
+		adminService.insertOrUpdateRole(a);
 		ModelAndView mav = new ModelAndView("/admin/liststudent");
 		// mav.addObject("course", course);
 		mav.addObject("student", new Account());
@@ -179,7 +213,7 @@ public class AdminController {
 	@RequestMapping("/api/listlecturer")
 	@ResponseBody
 	public List<Account> listEnrollment() {
-		return adminService.findByType("lecturer");
+		return adminService.findByType("ROLE_LECTURER");
 	}
 
 	@RequestMapping("/api/listcourses")
@@ -191,7 +225,7 @@ public class AdminController {
 	@RequestMapping("/api/liststudents")
 	@ResponseBody
 	public List<Account> listStudents() {
-		return adminService.findByType("student");
+		return adminService.findByType("ROLE_STUDENT");
 	}
 
 	@RequestMapping(value = "/addLecturer")
@@ -204,7 +238,15 @@ public class AdminController {
 
 	@PostMapping("/LecturerForm")
 	public ModelAndView insertCustomers(@ModelAttribute Account lecturer) {
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		lecturer.setPassword(bCryptPasswordEncoder.encode(lecturer.getPassword()));
+		lecturer.setType("ROLE_STUDENT");
+		lecturer.setEnabled("true");
+		Accountrole a = new Accountrole();
+		a.setUserid(lecturer.getUserid());
+		a.setAuthority("ROLE_STUDENT");
 		adminService.insertOrUpdate(lecturer);
+		adminService.insertOrUpdateRole(a);
 		ModelAndView mav = new ModelAndView("admin/Listlecturer");
 		mav.addObject("lecturer", new Account());
 		return mav;
@@ -215,38 +257,43 @@ public class AdminController {
 		;
 		List<Course> course = adminService.findCourseByLecturer(Integer.parseInt(userid));
 		for (Course es : course) {
-			// result.add(userDao.findByUserid(e.getId().getUserid()));
-			if (es.getAccount().getUserid() == Integer.parseInt(userid))
-				;
-			{
-				System.out.println(es.getCourseid());
-				adminService.delete(es.getCourseid());
+			courseDao.delete(es);
+			
 			}
-		}
-
+		
+		accountRoleDao.delete(Integer.parseInt(userid));
 		adminService.deleteStudent(Integer.parseInt(userid));
-		ModelAndView mav = new ModelAndView("admin/Listlecturer");
+		ModelAndView mav = new ModelAndView("redirect:/admin/findlecturer");
 		mav.addObject("lecturer", new Account());
 		return mav;
 	}
 
 	@PostMapping("/update")
 	public ModelAndView updateLecturer(@ModelAttribute Account lecturer) {
-
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+		lecturer.setPassword(bCryptPasswordEncoder.encode(lecturer.getPassword()));
+		lecturer.setType("ROLE_STUDENT");
+		lecturer.setEnabled("true");
+		Accountrole a = new Accountrole();
+		a.setUserid(lecturer.getUserid());
+		a.setAuthority("ROLE_STUDENT");
 		adminService.insertOrUpdate(lecturer);
+		adminService.insertOrUpdateRole(a);
 		ModelAndView mav = new ModelAndView("admin/Listlecturer");
 		mav.addObject("lecturer", new Account());
 		return mav;
 	}
 
 	@RequestMapping(value = "/editErollment/{userid}/{enrollmentDate}/{grades}/{courseid}", method = RequestMethod.GET)
-	public ModelAndView enrollmentSTUED(@PathVariable String userid, @PathVariable String enrollmentDate, @PathVariable String grades, @PathVariable String courseid) {
+	public ModelAndView enrollmentSTUED(@PathVariable String userid, @PathVariable String enrollmentDate,
+			@PathVariable String grades, @PathVariable String courseid) {
 		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
 		mav.addObject("courseid", courseid);
 		mav.addObject("userid", userid);
 		mav.addObject("enrolldate", enrollmentDate);
 		mav.addObject("grades", grades);
-		adminService.updateEnrollment(Integer.parseInt(courseid), Integer.parseInt(userid), Integer.parseInt(grades), enrollmentDate);
+		adminService.updateEnrollment(Integer.parseInt(courseid), Integer.parseInt(userid), Integer.parseInt(grades),
+				enrollmentDate);
 		return mav;
 	}
 

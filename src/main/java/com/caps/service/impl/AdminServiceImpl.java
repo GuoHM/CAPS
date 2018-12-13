@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.caps.dao.AccountDao;
+import com.caps.dao.AccountRoleDao;
 import com.caps.dao.CourseDao;
 import com.caps.dao.EnrollmentDao;
 import com.caps.entity.Account;
+import com.caps.entity.Accountrole;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
 import com.caps.entity.EnrollmentPK;
@@ -28,6 +30,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AccountDao accountDao;
+	
+	@Autowired
+	AccountRoleDao accountRoleDao;
 
 	@Override
 	public List<Course> findAllCourses() {
@@ -170,5 +175,10 @@ public class AdminServiceImpl implements AdminService {
 		enrollmentDao.saveAndFlush(enrollment);
 
 	}
+	@Override
+	public Accountrole insertOrUpdateRole(Accountrole account) {
+		return accountRoleDao.save(account);
+	}
+	
 
 }

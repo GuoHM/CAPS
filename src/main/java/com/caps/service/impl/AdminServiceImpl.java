@@ -14,7 +14,8 @@ import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
 import com.caps.entity.EnrollmentPK;
 import com.caps.entity.Account;
-import com.caps.service.AdminService;;
+import com.caps.service.AdminService;
+
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -57,10 +58,35 @@ public class AdminServiceImpl implements AdminService{
 	}
 
 	@Override
-	public List<Account> findByType() {
+	public List<Account> findByType(String type) {
 		// TODO Auto-generated method stub
-		return userDao.findByType("lecturer");
+		return userDao.findByType(type);
 	}
+	@Override
+	public Course insertOrUpdate(Course course) {
+		// TODO Auto-generated method stub
+		return courseDao.save(course);
+	}
+	
+	@Override
+	public Account insertOrUpdate(Account account) {
+		return userDao.save(account);
+	}
+	@Override
+	public void delete(int id) {
+		// TODO Auto-generated method stub
+		courseDao.delete(id);
+	}
+	@Override
+	public void deleteStudent(int id) {
+		userDao.delete(id);
+	}
+	@Override
+	public Course findByCourseId(int id)
+	{
+		return courseDao.findByCourseid(id);
+	}
+	
 
 	@Override
 	public void removeEnrollment(int userid) {
@@ -98,6 +124,12 @@ public class AdminServiceImpl implements AdminService{
 		   }
 		}
 		return account;
+	}
+
+	@Override
+	public List<Account> findByType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

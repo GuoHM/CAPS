@@ -53,21 +53,21 @@ var TableInit = function() {
 				field : 'course.courseName'
 			},{
 				align : "center",
-				title : 'Enrollment_Date',
+				title : 'Course Credit',
 				sortable : true,
 				sortable : true,
-				field : 'enrollmentDate'
+				field : 'course.credit'
 			},{
 				align : "center",
 				title : 'Grades',
 				sortable : true,
 				sortable : true,
 				field : 'grades'
-			}
 			
+			}],
 	
-			],
-			formatLoadingMessage : function() {
+			
+				formatLoadingMessage : function() {
 				return "loading...";
 			}
 		});
@@ -82,9 +82,12 @@ var TableInit = function() {
 		return temp;
 	};
 	
-	
 	return oTableInit;
 };
+	
+
+
+
 
 var ButtonInit = function() {
 	var oInit = new Object();
@@ -103,5 +106,6 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
 
 

@@ -22,8 +22,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		auth.jdbcAuthentication().dataSource(dataSource)
 		.usersByUsernameQuery("select userid, password, enabled from account where userid=?")
-		.authoritiesByUsernameQuery("select userid, authority " + "from accountrole where userid=?");
-		// .passwordEncoder(passwordEncoder());
+		.authoritiesByUsernameQuery("select userid, authority " + "from accountrole where userid=?")
+		.passwordEncoder(passwordEncoder());
 	}
 
 	@Bean
@@ -46,7 +46,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.successHandler(new LoginSuccessHandle())
 		.failureUrl("/login?error")
 		.usernameParameter("userid").passwordParameter("password")
-		.and().csrf().disable();
+		.and()
+		.exceptionHandling().accessDeniedPage("/error")
+		.and()
+		.csrf().disable();
 	}
 
 }

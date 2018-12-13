@@ -18,7 +18,7 @@
 				</ul>
 				-->
 				<ul class="nav navbar-nav navbar-right" th:if="${login==null}">
-					<li><a href="login"><span class="glyphicon glyphicon-user"></span>Log in</a></li>
+					<li><a href="/login"><span class="glyphicon glyphicon-user"></span>Log in</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right" th:unless="${login==null}">
 					<li><a href="" th:text="'Welcome,'+${login}"></a></li>

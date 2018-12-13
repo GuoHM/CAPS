@@ -3,6 +3,8 @@ package com.caps.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -26,6 +28,7 @@ public class Account implements Serializable {
 	private String address;
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dob;
 
 	private String email;

@@ -4,7 +4,7 @@
 </head>
 <body>
 
-<div class="container" style="margin-top: 21px;">
+	<div class="container" style="margin-top: 21px;">
 		<div th:replace="fragments/navigationbar :: navigationbar"></div>
 		<div class="containner" style="margin-top: 5%;">
 			<div class="row clearfix">
@@ -12,20 +12,49 @@
 					<div th:replace="fragments/student-sidebar :: student-sidebar"></div>
 				</div>
 				<div class="col-xs-10 column">
-			
+					<div class="panel-body" style="padding-bottom: 0px;">
+						<div class="panel panel-default">
+							<div class="panel-heading">GPA</div>
+							<div class="panel-body center">
+								<div th:href="@{/student/student-view-grades}">
+									<h3 th:text="${#numbers.formatDecimal(GPA, 0, 2)}"></h3>
+									
+								</div>
+							</div>
+						</div>
+					</div>
 					<table class="table" id="student-courses"></table>
-					
+
 				</div>
-				
-				<div th:href="@{/student/student-view-grades}">
-				<label>GPA</label>
-				<span style="align:right;" th:text="${CPA}"></span>
-				</div>
+
 			</div>
 		</div>
 	</div>
 
-<div th:replace="fragments/footer::footer"></div>
+
+	<div id="deleteEmployeeModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="student-view-grades">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Employee</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning">
+							<small>This action cannot be undone.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+						<input type="submit" class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div th:replace="fragments/footer::footer"></div>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
 	<script type="text/javascript" th:src="@{/js/tables/student-view-grades.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>

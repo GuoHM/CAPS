@@ -3,6 +3,8 @@ package com.caps.entity;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Date;
@@ -34,6 +36,7 @@ public class Course implements Serializable {
 	private String duration;
 
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Column(name = "start_date")
 	private Date startDate;
 

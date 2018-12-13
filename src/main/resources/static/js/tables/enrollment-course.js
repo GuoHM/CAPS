@@ -1,19 +1,17 @@
 $(document).ready(function() {
 
-	var oTableInit = new TableInit();
-	oTableInit.Init();
+var oTableInit = new TableInit();
+oTableInit.Init();
 
-	var oButtonInit = new ButtonInit();
-	oButtonInit.Init();
 
 });
 
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#student-courses').bootstrapTable({
+		$('#course-table').bootstrapTable({
 			method : 'get', 
-			url : "/student/api/enrollment",
+			url : "/admin/api/enrollment-course",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -30,7 +28,7 @@ var TableInit = function() {
 			queryParamsType : "",
 			showRefresh : true, // 是否显示刷新按钮
 			minimumCountColumns : 2, // 最少允许的列数
-			clickToSelect : false, // 是否启用点击选中行
+			clickToSelect : true, // 是否启用点击选中行
 			height : 500, // 行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
 			// uniqueId: "ID", //每一行的唯一标识，一般为主键列
 			showToggle : true, // 是否显示详细视图和列表视图的切换按钮
@@ -39,36 +37,36 @@ var TableInit = function() {
 			showExport: true,                     //是否显示导出
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
-			columns : [ {
+			columns : [{
 				align : "center",
-				title : 'enrollment_date',
+				title : 'courseid',
 				sortable : true,
 				sortable : true,
-				field : 'enrollmentDate'
+				field : 'courseid'
 			},{
 				align : "center",
-				title : 'Course ID',
+				title : 'courseName',
 				visible : true,
 				sortable : true,
-				field : 'course.courseid'
+				field : 'courseName'
 			},{
 				align : "center",
-				title : 'Course Name',
+				title : 'courseStatus',
 				sortable : true,
 				sortable : true,
-				field : 'course.courseName'
-			},
-			{
+				field : 'courseStatus'
+			},{
 				align : "center",
-				title : 'option',
-				visible : true,
-				sortable : false,
-				events: operateEvents,
-				formatter: operateFormatter
-			
-	
-						
-			}],
+				title : 'startDate',
+				sortable : true,
+				sortable : true,
+				field : 'startDate'
+			},{
+				align : "center",
+				title : '',
+				formatter: actionFormatter
+			}
+			],
 			formatLoadingMessage : function() {
 				return "loading...";
 			}
@@ -79,25 +77,13 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-
+				courseid : $("#course-list").val()
 		};
 		return temp;
 	};
-	function operateFormatter(value, row, index) {
-		return [
-		        '<a class="remove" href="javascript:void(0)" title="Remove">',
-		        '<span class="glyphicon glyphicon-remove"></span>',
-		        '</a>'
-		        ].join('');
-	}
-	operateEvents = {
-			
-			'click .remove': function (e, value, row, index) {
-				$("#deleteEnrollmentModal").modal('show');
-				var url = 'delete/' + row.course.courseid + '/' +row.account.userid;
-				$("#deleteForm").attr('action',url);
-			}
-	};
+
+
+	
 	
 	return oTableInit;
 };
@@ -108,8 +94,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#btnListCustomer').click(function() {
-			$("#student-courses").bootstrapTable('destroy');
+		$('#submit-course').click(function() {
+			$("#course-table").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})
@@ -119,3 +105,16 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+var rows = $table.bootstrapTable('getSelections');
+if (rows.length > 0) {
+       ID = rows[0].ID;
+}
+
+function actionFormatter(value, row, index) {
+    var id = value;
+    var result = "";
+    result += "<a href='/admin/enrollment-student?courseid="+row.courseid+"' class='btn btn-xs green'  title='Detail'><span class='glyphicon glyphicon-search'></span></a>";
+ 
+    return result;
+}

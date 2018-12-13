@@ -21,7 +21,7 @@ public class DemoController {
 	TestService testService;
 	
 	@RequestMapping("/finduser")
-	@ResponseBody
+	
 	public ModelAndView insertCustomers(Model model) {
 		ModelAndView mav = new ModelAndView("index");
 	
@@ -30,8 +30,10 @@ public class DemoController {
 	
 	@RequestMapping("/api/enrollment")
 	@ResponseBody
-	public List<Account> listEnrollment() {
-		return testService.findUser();
+	public List<Enrollment> listEnrollment() {
+		return testService.findEnrollment();
 	}
+	
+
 
 }

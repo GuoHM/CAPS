@@ -86,33 +86,20 @@ var myTableInit = function() {
 		};
 		return temp;
 	};
-//	function operateFormatter(value, row, index) {
-//		return [
-//		        '<a class="like" href="javascript:void(0)" title="Add">',
-//		        '<span class="glyphicon glyphicon-cog"></span>',
-//		        '</a>',
-//		        ].join('');
-//	}
-//	operateEvents = {
-//			'click .like': function (e, value, row, index) {
-//				$("#editEnrollmentModal").modal('show');
-//				$("#studentnameEdit").val(row.account.name);
-//				$("#useridEdit").val(row.id.userid);
-//				$("#coursenameEdit").val(row.course.courseName);
-//				$("#courseidEdit").val(row.id.courseid);
-//				$("#enrollmentDateEdit").val(row.enrollmentDate);
-//				$("#gradesEdit").val(row.grades);
-//				var date = document.getElementById("enrollmentDateEdit").value;
-//				var grades = document.getElementById("gradesEdit").value;
-//				var url = 'editErollment/'+row.id.userid+'/'+date+'/'+grades+'/'+row.id.courseid;
-//				$("#editForm").attr('action',url);
-//			},
-//			'click .remove': function (e, value, row, index) {
-//				$("#deleteEnrollmentModal").modal('show');
-//				var url = 'deleteErollment/'+row.id.userid+'/'+row.id.courseid;
-//				$("#deleteForm").attr('action',url);
-//			}
-//	};
+	function operateFormatter(value, row, index) {
+		return [
+		        '<a class="like" href="javascript:void(0)" title="Add">',
+		        '<span class="glyphicon glyphicon-cog"></span>',
+		        '</a>',
+		        ].join('');
+	}
+	operateEvents = {
+			'click .like': function (e, value, row, index) {
+				var courseid = document.getElementById("courseid").value;
+				var url = 'addEnrollment/'+row.userid+'/'+courseid;
+				$("#addenrollmentForm").attr('action',url);
+			}
+	};
 
 
 	return addTableInit;

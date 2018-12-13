@@ -12,7 +12,8 @@ public interface AdminService {
 	List<Account> findByType(); //Mingjie 12/13/2018/3:50
 	List<Enrollment> findEnrollment(int courseid);
     void removeEnrollment(int userid);
-    void updateEnrollment(int courseid,int userid,int grades,String enrollDate);
+    void updateEnrollment(int courseid,int userid,int grades,String enrollmentDate);
+    void addEnrollment(int courseid,int userid,int grades,String enrollmentDate);
 	List<Account> findByType(String type);
 	public Course insertOrUpdate(Course course);
 	public Account insertOrUpdate(Account account);

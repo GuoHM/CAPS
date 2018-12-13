@@ -194,10 +194,15 @@ public class AdminController {
 		return mav;
 	}
 	
-	@RequestMapping("/addenrollment")
-	public ModelAndView addenrollment(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment");
-		mav.addObject("userid", request.getParameter("userid"));
+	@RequestMapping(value="/addEnrollment/{userid}/{courseid}",method = RequestMethod.GET)
+	public ModelAndView addenrollment(@PathVariable String userid,@PathVariable String courseid) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
+		mav.addObject("userid", userid);
+		mav.addObject("courseid", courseid);
+		Date date = new Date();
+		SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+		mav.addObject("date", ft.format(date));
+		adminService.addEnrollment(Integer.parseInt(courseid), Integer.parseInt(userid), 0, ft.format(date));
 		return mav;
 	}
 	

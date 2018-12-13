@@ -113,23 +113,37 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public List<Account> findStuNotenroll(int courseid) {
 		// TODO Auto-generated method stub
-		List<Account> account = accountDao.findByType("student");
-		for(Account a : account) {
-		   List<Course> courses = a.getCourses();
-		   for(Course course:courses) {
-			   int thisid =course.getCourseid();
-			   if(thisid == courseid) {
-				   account.remove(a);
-			   }
-		   }
-		}
-		return account;
+		List<Account> accounts = accountDao.findByType("student");
+        List<Enrollment> enrollments = enrollmentDao.findByIdCourseid(courseid);
+        for(Account account : accounts ) {
+        	for(Enrollment enrollment:enrollments) {
+        		if(account.equals(enrollment.getAccount())) {;
+        		accounts.remove(account);
+        		}
+        	}
+        	
+        }	
+		return accounts;
 	}
 
 	@Override
 	public List<Account> findByType() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void addEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
+		// TODO Auto-generated method stub
+		Enrollment enrollment = new Enrollment();
+        EnrollmentPK epk = new EnrollmentPK();
+        epk.setCourseid(courseid);
+        epk.setUserid(userid);
+        enrollment.setId(epk);
+        enrollment.setGrades(grades);
+        enrollment.setEnrollmentDate(enrollmentDate);
+		enrollmentDao.saveAndFlush(enrollment);
+		
 	}
 
 }

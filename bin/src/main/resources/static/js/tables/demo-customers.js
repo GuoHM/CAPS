@@ -13,7 +13,7 @@ var TableInit = function() {
 	oTableInit.Init = function() {
 		$('#demo-table').bootstrapTable({
 			method : 'get', 
-			url : "/admin/api/listlecturer",
+			url : "/demo/api/enrollment",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -57,42 +57,6 @@ var TableInit = function() {
 				sortable : true,
 				sortable : true,
 				field : 'dob'
-			},{
-				align : "center",
-				title : 'email',
-				sortable : true,
-				sortable : true,
-				field : 'email'
-			},{
-				align : "center",
-				title : 'phoneNumber',
-				sortable : true,
-				sortable : true,
-				field : 'phoneNumber'
-			},{
-				align : "center",
-				title : 'address',
-				sortable : true,
-				sortable : true,
-				field : 'address'
-			},{
-				align : "center",
-				title : 'password',
-				sortable : true,
-				sortable : true,
-				field : 'password'
-			},{
-				align : "center",
-				title : 'enabled',
-				sortable : true,
-				sortable : true,
-				field : 'enabled'
-			},{
-				align : "center",
-				title : 'type',
-				sortable : true,
-				sortable : true,
-				field : 'type'
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";

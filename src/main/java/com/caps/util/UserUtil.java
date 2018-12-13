@@ -7,7 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserUtil {
 	public static String currentUser(HttpSession session) {
-		SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
-		return ((UserDetails)securityContext.getAuthentication().getPrincipal()).getUsername();
+		try{
+			SecurityContextImpl securityContext = (SecurityContextImpl) session.getAttribute("SPRING_SECURITY_CONTEXT");
+			return ((UserDetails)securityContext.getAuthentication().getPrincipal()).getUsername();
+		}catch(java.lang.NullPointerException e){
+			return null;
+		}
 	}
 }

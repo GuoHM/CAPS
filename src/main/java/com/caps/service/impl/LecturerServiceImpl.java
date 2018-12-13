@@ -14,6 +14,7 @@ import com.caps.dao.EnrollmentDao;
 import com.caps.entity.Account;
 import com.caps.entity.Course;
 import com.caps.entity.Enrollment;
+import com.caps.entity.EnrollmentPK;
 import com.caps.service.LecturerService;
 import com.caps.util.UserUtil;
 
@@ -45,6 +46,23 @@ public class LecturerServiceImpl implements LecturerService {
 			result.add(userDao.findByUserid(e.getId().getUserid()));
 		}
 		return result;
+	}
+
+	@Override
+	public List<Enrollment> findEnrollmentByCourseid(int courseid) {
+		// TODO Auto-generated method stub
+		return enrollmentDao.findByIdCourseid(courseid);
+	}
+
+	@Override
+	public void updateGradesByCourseidAndUserid(int courseid, int userid, int grades) {
+		// TODO Auto-generated method stub
+		EnrollmentPK pk = new EnrollmentPK();
+		pk.setCourseid(courseid);
+		pk.setUserid(userid);
+		Enrollment enrollment = enrollmentDao.findById(pk);
+		enrollment.setGrades(grades);
+		enrollmentDao.saveAndFlush(enrollment);
 	}
 
 }

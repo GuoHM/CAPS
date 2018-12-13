@@ -11,9 +11,9 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#demo-table').bootstrapTable({
+		$('#student-addcourse').bootstrapTable({
 			method : 'get', 
-			url : "/admin/api/listlecturer",
+			url : "/student/api/addcourse",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,58 +41,52 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'userid',
+				title : 'Course ID',
 				sortable : true,
 				sortable : true,
-				field : 'userid'
+				field : 'course.courseid'
 			},{
 				align : "center",
-				title : 'name',
+				title : 'Course Name',
 				visible : true,
 				sortable : true,
-				field : 'name'
+				field : 'course.coursename'
 			},{
 				align : "center",
-				title : 'dob',
+				title : 'Lecturer Name',
+				visible : true,
 				sortable : true,
-				sortable : true,
-				field : 'dob'
+				field : 'course.courseid'
 			},{
 				align : "center",
-				title : 'email',
+				title : 'Class Size',
+				visible : true,
 				sortable : true,
-				sortable : true,
-				field : 'email'
+				field : 'course.courseid'
 			},{
 				align : "center",
-				title : 'phoneNumber',
+				title : 'Start Date',
 				sortable : true,
 				sortable : true,
-				field : 'phoneNumber'
+				field : 'enrollmentDate'
 			},{
 				align : "center",
-				title : 'address',
+				title : 'Duration',
 				sortable : true,
 				sortable : true,
-				field : 'address'
+				field : 'duration'
 			},{
 				align : "center",
-				title : 'password',
+				title : 'Course Status',
 				sortable : true,
 				sortable : true,
-				field : 'password'
+				field : 'duration'
 			},{
 				align : "center",
-				title : 'enabled',
+				title : 'Credits',
 				sortable : true,
 				sortable : true,
-				field : 'enabled'
-			},{
-				align : "center",
-				title : 'type',
-				sortable : true,
-				sortable : true,
-				field : 'type'
+				field : 'credits'
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";
@@ -120,7 +114,7 @@ var ButtonInit = function() {
 	oInit.Init = function() {
 		// button
 		$('#btnListCustomer').click(function() {
-			$("#demo-table").bootstrapTable('destroy');
+			$("#student-addcourse").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})

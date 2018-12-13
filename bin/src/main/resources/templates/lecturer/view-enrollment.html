@@ -13,7 +13,7 @@
 					<form class="form-inline">
 						<div class="form-group">
 							<label for="sel1">Select course:</label>
-							<select class="form-control" id="course-list" style="width: 200px" size="1">
+							<select class="form-control" id="course-list" style="width:200px" size="1">
 								<option th:each="course:${courselist}" th:value="${course.courseid}" th:text="${course.courseName}"></option>
 							</select>
 						</div>
@@ -26,35 +26,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- Edit Modal HTML -->
-	<div id="editGradeModal" class="modal fade">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<form id="updateGrades" th:action="@{/lecturer/grades}" method="post">
-					<div class="modal-header">
-						<h4 class="modal-title">Edit Grade</h4>
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-					</div>
-					<div class="modal-body">
-						<div class="form-group">
-							<label>Grade</label>
-							<input type="number" max="100" min="0" class="form-control" required id="grades" name="grades">
-						</div>
-
-						<input type="hidden" class="form-control" required id="courseid" name="courseid">
-						<input type="hidden" class="form-control" required id="userid" name="userid">
-					</div>
-
-					<div class="modal-footer">
-						<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-						<input type="submit" class="btn btn-info" value="Save">
-					</div>
-				</form>
-			</div>
-
-		</div>
-	</div>
-
 	<div th:replace="fragments/footer::footer"></div>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
 	<script type="text/javascript" th:src="@{/js/tables/enrollment-table.js}"></script>

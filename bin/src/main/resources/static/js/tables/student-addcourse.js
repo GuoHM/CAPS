@@ -11,9 +11,9 @@ $(document).ready(function() {
 var TableInit = function() {
 	var oTableInit = new Object();
 	oTableInit.Init = function() {
-		$('#enrollment-table').bootstrapTable({
+		$('#student-addcourse').bootstrapTable({
 			method : 'get', 
-			url : "/lecturer/api/listenrollment",
+			url : "/student/api/addcourse",
 			toolbar: '#toolbar',                //工具按钮用哪个容器
 			striped : true, // 是否显示行间隔色
 			cache : false, // 是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -41,18 +41,6 @@ var TableInit = function() {
 			showColumns : true,
 			columns : [ {
 				align : "center",
-				title : 'User ID',
-				sortable : true,
-				sortable : true,
-				field : 'account.userid'
-			},{
-				align : "center",
-				title : 'Name',
-				visible : true,
-				sortable : true,
-				field : 'account.name'
-			},{
-				align : "center",
 				title : 'Course ID',
 				sortable : true,
 				sortable : true,
@@ -60,28 +48,45 @@ var TableInit = function() {
 			},{
 				align : "center",
 				title : 'Course Name',
-				sortable : true,
-				sortable : true,
-				field : 'course.courseName'
-			},{
-				align : "center",
-				title : 'Course Credit',
-				sortable : true,
-				sortable : true,
-				field : 'course.credit'
-			},{
-				align : "center",
-				title : 'Grade',
-				sortable : true,
-				sortable : true,
-				field : 'grades'
-			},{
-				align : "center",
-				title : 'option',
 				visible : true,
-				sortable : false,
-				events: operateEvents,
-				formatter: operateFormatter
+				sortable : true,
+				field : 'course.coursename'
+			},{
+				align : "center",
+				title : 'Lecturer Name',
+				visible : true,
+				sortable : true,
+				field : 'course.courseid'
+			},{
+				align : "center",
+				title : 'Class Size',
+				visible : true,
+				sortable : true,
+				field : 'course.courseid'
+			},{
+				align : "center",
+				title : 'Start Date',
+				sortable : true,
+				sortable : true,
+				field : 'enrollmentDate'
+			},{
+				align : "center",
+				title : 'Duration',
+				sortable : true,
+				sortable : true,
+				field : 'duration'
+			},{
+				align : "center",
+				title : 'Course Status',
+				sortable : true,
+				sortable : true,
+				field : 'duration'
+			},{
+				align : "center",
+				title : 'Credits',
+				sortable : true,
+				sortable : true,
+				field : 'credits'
 			}],
 			formatLoadingMessage : function() {
 				return "loading...";
@@ -93,26 +98,12 @@ var TableInit = function() {
 	oTableInit.queryParams = function(params) {
 
 		var temp = {
-				courseid : $("#course-list").val()
+
 		};
 		return temp;
 	};
 
-	function operateFormatter(value, row, index) {
-		return [
-		        '<a class="Edit" href="javascript:void(0)" title="Edit">',
-		        '<span class="glyphicon glyphicon-cog"></span>',
-		        '</a>'
-		        ].join('');
-	}
-	operateEvents = {
-			'click .Edit': function (e, value, row, index) {
-				$("#editGradeModal").modal('show');
-				$("#userid").val(row.account.userid);
-				$("#courseid").val(row.course.courseid);
-				$("#grades").val(row.grades);
-			}
-	};
+	
 	return oTableInit;
 };
 
@@ -122,8 +113,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#submit-course').click(function() {
-			$("#enrollment-table").bootstrapTable('destroy');
+		$('#btnListCustomer').click(function() {
+			$("#student-addcourse").bootstrapTable('destroy');
 			var oTable = new TableInit();
 			oTable.Init();
 		})

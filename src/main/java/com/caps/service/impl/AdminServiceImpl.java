@@ -134,7 +134,7 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 
 
-		List<Account> accounts = accountDao.findByType("student");
+		List<Account> accounts = accountDao.findByType("ROLE_STUDENT");
         List<Enrollment> enrollments = enrollmentDao.findByIdCourseid(courseid);
         for(int i = 0;i<enrollments.size();i++ ) {
         	Enrollment enrollment = enrollments.get(i);

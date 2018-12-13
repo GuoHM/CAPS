@@ -9,7 +9,9 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,13 +51,25 @@ public class AdminController {
 		return adminService.findByType();
 	}
 
-	@RequestMapping("/deleteErollment/{userid}/{courseid}")
+	@RequestMapping(value="/editErollment/{userid}/{enrollmentDate}/{grades}/{courseid}", method = RequestMethod.GET)
 	@ResponseBody
-	public ModelAndView enrollmentSTUDL(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/admin/enrollment-student");
-		mav.addObject("courseid",request.getParameter("courseid"));
-		mav.addObject("userid",request.getParameter("userid"));
-		
+	public ModelAndView enrollmentSTUED(@PathVariable String userid,@PathVariable String enrollmentDate,@PathVariable String grades,@PathVariable String courseid) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
+		mav.addObject("courseid",courseid);
+		mav.addObject("userid",userid);
+		//mav.addObject("enrollmentDate",enrollmentDate);
+		//mav.addObject("grades",grades);
+		adminService.updateEnrollment(2,2,2, "2018-10-10");
+		return mav;
+	}
+	
+	@RequestMapping(value="/deleteErollment/{userid}/{courseid}", method = RequestMethod.GET)
+	@ResponseBody
+	public ModelAndView enrollmentSTUDL(@PathVariable String userid,@PathVariable String courseid) {
+		ModelAndView mav = new ModelAndView("redirect:/admin/enrollment-student");
+		mav.addObject("courseid",courseid);
+		mav.addObject("userid",userid);
+		adminService.removeEnrollment(Integer.parseInt(userid));
 		return mav;
 	}
 	

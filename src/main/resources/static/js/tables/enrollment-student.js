@@ -1,6 +1,9 @@
 $(document).ready(function() {
 	var oTableInit = new TableInit();
 	oTableInit.Init();
+	
+    var oButtonInit = new ButtonInit();
+    oButtonInit.Init();
 });
 
 var TableInit = function() {
@@ -35,14 +38,29 @@ var TableInit = function() {
 			exportDataType: "basic",              //basic', 'all', 'selected'.
 			showColumns : true,
 			columns : [{
-                checkbox: true,  
-                visible: true                  //是否显示复选框  
-            },{
 				align : "center",
-				title : 'id',
+				title : 'CourseID',
 				sortable : true,
+				sortable : true,
+				field : 'id.courseid'
+			},{
+				align : "center",
+				title : 'Course Name',
+				visible : true,
+				sortable : true,
+				field : 'course.courseName'
+			},{
+				align : "center",
+				title : 'StudentID',
+				visible : true,
 				sortable : true,
 				field : 'id.userid'
+			},{
+				align : "center",
+				title : 'Student Name',
+				visible : true,
+				sortable : true,
+				field : 'account.name'
 			},{
 				align : "center",
 				title : 'enrollmentDate',
@@ -92,13 +110,18 @@ var TableInit = function() {
 	operateEvents = {
 			'click .like': function (e, value, row, index) {
 				$("#editEnrollmentModal").modal('show');
-				$("#userid").val(row.id.userid);
+				$("#studentname").val(row.account.name);
+				$("#coursename").val(row.course.courseName);
 				$("#enrollmentDate").val(row.enrollmentDate);
 				$("#grades").val(row.grades);
+				var date = document.getElementById("enrollmentDate").value;
+				var grades = document.getElementById("grades").value;
+				var url = 'editErollment/'+row.id.userid+'/'+date+'/'+grades+'/'+row.id.courseid;
+				$("#editForm").attr('action',url);
 			},
 			'click .remove': function (e, value, row, index) {
 				$("#deleteEnrollmentModal").modal('show');
-				var url = 'deleteErollment/'+row.id.userid+'/1';
+				var url = 'deleteErollment/'+row.id.userid+'/'+row.id.courseid;
 				$("#deleteForm").attr('action',url);
 			}
 	};
@@ -113,10 +136,8 @@ var ButtonInit = function() {
 
 	oInit.Init = function() {
 		// button
-		$('#submit-course').click(function() {
-			$("#enrollment-table").bootstrapTable('destroy');
-			var oTable = new TableInit();
-			oTable.Init();
+		$('#btn_add').click(function() {
+			$("#addEnrollmentModal").modal('show')
 		})
 
 
@@ -124,3 +145,13 @@ var ButtonInit = function() {
 
 	return oInit;
 };
+
+function editFunction()
+{
+	var stu = document.getElementById("studentname").value;
+	var course = document.getElementById("coursename").value;
+	var date = document.getElementById("enrollmentDate").value;
+	var grades = document.getElementById("grades").value;
+	var url = 'editErollment/'+stu+'/'+date+'/'+grades+'/'+course;
+	$("#editForm").attr('action',url);
+}

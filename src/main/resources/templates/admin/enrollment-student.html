@@ -10,86 +10,119 @@
 					<div th:replace="fragments/admin-sidebar :: admin-sidebar"></div>
 				</div>
 				<div class="col-xs-10 column">
-				    <input type="hidden"  id="courseid" th:value="${courseid}" >
-				    <input type="hidden"  id="userid" th:value="${userid}" >
+					<input type="hidden" id="courseid" th:value="${courseid}">
+					<input type="hidden" id="userid" th:value="${userid}">
 					<table class="table" id="stu-table"></table>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="toolbar" class="btn-group">
-            <button id="btn_add" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
-            </button>
-            <button id="btn_delete" type="button" class="btn btn-default">
-                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>Delete
-            </button>
-     </div>
+		<button id="btn_add" type="button" class="btn btn-default">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Add
+		</button>
+	</div>
 	<!-- Edit Modal HTML -->
-			<div id="editEnrollmentModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<form>
-							<div class="modal-header">
-								<h4 class="modal-title">Edit Employee</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							</div>
-							<div class="modal-body">
-								<div class="form-group">
-									<label>StudentID</label>
-									<input type="text" class="form-control" required id="userid">
-								</div>
-								<div class="form-group">
-									<label>Enroll Date</label>
-									<input type="text" class="form-control" required id="enrollmentDate">
-								</div>
-								<div class="form-group">
-									<label>Grades</label>
-									<input type="text" class="form-control" required id="grades">
-								</div>
-								<div class="form-group">
-									<label>Phone</label>
-									<textarea class="form-control" required></textarea>
-								</div>
-							</div>
-							<div class="modal-footer">
-								<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-								<input type="submit" class="btn btn-info" value="Save">
-							</div>
-						</form>
+	<div id="editEnrollmentModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="editForm">
+					<div class="modal-header">
+						<h4 class="modal-title">Edit Enrollment</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
 					</div>
-				</div>
-			</div>
-			<!-- Delete Modal HTML -->
-			<div id="deleteEnrollmentModal" class="modal fade">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<form id="deleteForm">
-							<div class="modal-header">
-								<h4 class="modal-title">Delete Employee</h4>
-								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-							</div>
-							<div class="modal-body">
-								<p>Are you sure you want to delete these Records?</p>
-								<p class="text-warning">
-									<small>This action cannot be undone.</small>
-								</p>
-							</div>
-							<div class="modal-footer">
-								<input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-								<input type="submit"  value="Submit" >
-							</div>
-						</form>
+					<div class="modal-body">
+						<div class="form-group">
+							<label>Student Name</label> <input type="text" class="form-control"
+								required id="studentname" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>Course Name</label> <input type="text" class="form-control"
+								required id="coursename" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label>Enroll Date</label> <input type="text"
+								class="form-control" required id="enrollmentDate" onchange="editFunction()">
+						</div>
+						<div class="form-group">
+							<label>Grades</label> <input type="text" class="form-control"
+								required id="grades"  onchange="editFunction(this.value)">
+						</div>
 					</div>
-				</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal"
+							value="Cancel"> <input type="submit" class="btn btn-info"
+							value="Save">
+					</div>
+				</form>
 			</div>
+		</div>
+	</div>
+	<!-- Delete Modal HTML -->
+	<div id="deleteEnrollmentModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="deleteForm">
+					<div class="modal-header">
+						<h4 class="modal-title">Delete Enrollment</h4>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+						<p>Are you sure you want to delete these Records?</p>
+						<p class="text-warning">
+							<small>This action cannot be undone.</small>
+						</p>
+					</div>
+					<div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal"
+							value="Cancel"> <input type="submit"
+							class="btn btn-danger" value="Delete">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<a data-toggle="modal" href="/demo/api/enrollment" data-target="#addEnrollmentModal">click</a>
+	<!-- addEnrollment Modal HTML -->
+	<div id="addEnrollmentModal" class="modal fade">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<h4 class="modal-title">Add Student</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					</div>
+					<div class="modal-body">
+					<div class="col-xs-10 column">
+					<table class="table" id="enrollment-table" style="width: 100%;"></table>
+					<thead>
+							<tr>
+								<th style="width: 150px; text-align: center;">1</th>
+								<th style="width: 150px; text-align: center;">2</th>
+								<th style="width: 150px; text-align: center;">3</th>
+							</tr>
+					</thead>
+					</div>
+	                </div>
+			        <div class="modal-footer">
+						<input type="button" class="btn btn-default" data-dismiss="modal"value="Cancel">
+						<input type="submit" class="btn btn-info"alue="Save">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
 
 	<div th:replace="fragments/footer::footer"></div>
+	<script type="text/javascript"th:src="@{/js/tables/show-student-list.js}"></script>
 	<script type="text/javascript" th:src="@{/js/bootstrap-table.js}"></script>
-	<script type="text/javascript" th:src="@{/js/tables/enrollment-student.js}"></script>
-	<script type="text/javascript" th:src="@{/js/bootstrap-table-export.js}"></script>
+	<script type="text/javascript"th:src="@{/js/tables/enrollment-student.js}"></script>
+	<script type="text/javascript"th:src="@{/js/bootstrap-table-export.js}"></script>
 	<script src="//rawgit.com/hhurz/tableExport.jquery.plugin/master/tableExport.js"></script>
-	
+
 </body>
 
 </html>

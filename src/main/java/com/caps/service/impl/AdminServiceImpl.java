@@ -58,4 +58,29 @@ public class AdminServiceImpl implements AdminService{
 		return userDao.findByType("lecturer");
 	}
 
+	@Override
+	public void removeEnrollment(int userid) {
+		// TODO Auto-generated method stub
+        List<Enrollment> Liste = enrollmentDao.findByIdUserid(userid);
+        for(Enrollment en :Liste) {
+        	enrollmentDao.delete(en);
+        }
+	}
+
+	@Override
+	public void updateEnrollment(int courseid, int userid, int grades, String enrollmentDate) {
+		// TODO Auto-generated method stub
+		List<Enrollment> eList = enrollmentDao.findByIdUserid(userid);
+		Enrollment e = eList.iterator().next();
+		for(Enrollment en :eList) {
+			int id = en.getCourse().getCourseid();
+			if(id==courseid) {
+				e=en;
+			}
+		}
+		e.setEnrollmentDate(enrollmentDate);
+		e.setGrades(grades);
+		
+	}
+
 }

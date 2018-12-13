@@ -37,7 +37,7 @@ public class TestServiceImpl implements TestService {
 	public List<Enrollment> findEnrollment() {
 		// TODO Auto-generated method stub
 		//return enrollmentDao.findAll();
-		return enrollmentDao.findByIdUserid(1);
+		return enrollmentDao.findByIdUserid(2);
 	}
 
 	@Override

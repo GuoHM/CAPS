@@ -30,8 +30,8 @@ public class DemoController {
 	
 	@RequestMapping("/api/enrollment")
 	@ResponseBody
-	public List<Account> listEnrollment() {
-		return testService.findUser();
+	public List<Enrollment> listEnrollment() {
+		return testService.findEnrollment();
 	}
 	
 

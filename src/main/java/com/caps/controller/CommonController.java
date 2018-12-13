@@ -31,7 +31,7 @@ public class CommonController {
 		return mav;
 	}
 	
-	@RequestMapping("/index")
+	@RequestMapping("/CAPS")
 	public String home() {
 		return "index";
 	}

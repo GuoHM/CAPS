@@ -76,20 +76,34 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public double calculateGPA(HttpSession httpsession) {
 		// TODO Auto-generated method stub
-		double count=0.0;
+		
+		int grade=0;
+		double count=0;
 		double result=0.0;
 		double gpa=0;
 		int userid = Integer.parseInt(UserUtil.currentUser(httpsession));
 		List<Enrollment> enrollment = enrollmentDao.findByIdUserid(userid);
 		for (Enrollment e : enrollment) {
-
-			gpa = (e.getGrades()*e.getCourse().getCredit()) +gpa;
+			
+			if (e.getGrades()>=80)
+				grade = 5;
+			else if ((e.getGrades()>=60)&& (e.getGrades()<80))
+				grade = 4;
+			else if ((e.getGrades()>=40)&& (e.getGrades()<60))
+				grade = 3;
+			else if (e.getGrades()<40)
+			grade = 0;
+			
+			gpa = (grade*e.getCourse().getCredit()) +gpa;
 			result += e.getCourse().getCredit();	 
-			count++;
-
+			
 		}
 		count = gpa/result;
 		return count;
+		
+
+		
+			
 	}
 
 }

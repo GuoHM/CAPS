@@ -41,6 +41,16 @@ public class CommonController {
 		return "faculities";
 	}
 	
+	@RequestMapping("/news")
+	public String news() {
+		return "news";
+	}
+	
+	@RequestMapping("/culture")
+	public String culture() {
+		return "culture";
+	}
+	
 	@RequestMapping("/login")
 	public String login() {
 		return "login";

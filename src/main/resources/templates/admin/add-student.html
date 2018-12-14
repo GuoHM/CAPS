@@ -67,15 +67,21 @@
     <div class="form-group">
       <label for="pwd" class="col-sm-2 control-label" >Is Active:</label>
            <div class="col-sm-10">
-       <input type="text" class="form-control"  placeholder="Active"  th:field="*{enabled}" value="Active">
-    
+       <select th:field ="*{enabled}" class="form-control" style="width:200px" size="1">
+									<option th:value="true" th:text="true"  ></option>
+								<option th:value="false" th:text="false"  ></option>
+								
+								</select>
        </div>
        </div>
     
      <div class="form-group">
       <label for="pwd" class="col-sm-2 control-label">Type of User:</label>
        <div class="col-sm-10">
-        <input type="text" class="form-control"  placeholder="Student"  th:field="*{type}" value="Student">
+      <select th:field ="*{type}" class="form-control" style="width:200px" size="1">
+									<option th:value="ROLE_STUDENT" th:text="ROLE_STUDENT" id="lectureIDEdit" ></option>
+								</select>
+   
     </div>
       </div>
        <div class="col-sm-10 col-sm-offset-2 control-label">

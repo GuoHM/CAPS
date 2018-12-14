@@ -60,44 +60,37 @@ var TableInit = function() {
 				
 			},{
 				align : "center",
-				title : 'email',
+				title : 'Email ID',
 				sortable : true,
 				sortable : true,
 				field : 'email'
 			},{
 				align : "center",
-				title : 'phoneNumber',
+				title : 'Mobile  Number',
 				sortable : true,
 				sortable : true,
 				field : 'phoneNumber'
 			},{
 				align : "center",
-				title : 'address',
+				title : 'Address ',
 				sortable : true,
 				sortable : true,
 				field : 'address'
 			},{
 				align : "center",
-				title : 'password',
-				visible : true,
-				sortable : false,
-				field : 'password'
-			    
-			},{
-				align : "center",
-				title : 'enabled',
+				title : 'Is Active',
 				sortable : true,
 				sortable : true,
 				field : 'enabled'
 			},{
 				align : "center",
-				title : 'type',
+				title : 'Type of User',
 				sortable : true,
 				sortable : true,
 				field : 'type'
 			},{
 				align : "center",
-				title : 'option',
+				title : 'Edit Options',
 				visible : true,
 				sortable : false,
 				events: operateEvents,

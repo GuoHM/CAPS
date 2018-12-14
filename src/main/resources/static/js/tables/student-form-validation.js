@@ -67,7 +67,7 @@ $(document).ready(function() {
 						message: 'The length should between 0 to 30'
 					},
 					regexp: {
-						regexp: /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/,
+						regexp: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
 						message: 'Invalid email'
 					}
 				}
@@ -97,20 +97,20 @@ $(document).ready(function() {
 					},
 					stringLength: {
 						min: 0,
-						max: 30,
-						message: 'The length should between 0 to 30'
+						max: 70,
+						message: 'The length should between 0 to 70'
 					}
 				}
 			},
 			password: {
-				message:'Invalid company name',
+				message:'Invalid Password',
 				validators: {
 					notEmpty: {
 						message: 'cannot be empty'
 					},
 					stringLength: {
 						min: 0,
-						max: 30
+						max: 100
 
 					}
 				},

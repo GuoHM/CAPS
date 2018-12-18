@@ -62,7 +62,9 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public List<Account> findByType(String type) {
 		// TODO Auto-generated method stub
-		return userDao.findByType(type);
+		List<Account> account = userDao.findByType(type);
+		
+		return account;
 	}
 
 	@Override

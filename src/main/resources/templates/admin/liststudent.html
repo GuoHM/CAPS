@@ -59,11 +59,20 @@
 								</div>
 									<div class="form-group">
 									<label  >Enabled:</label>
-									<input type="text" class="form-control"  th:field="*{enabled}" id=enabledEdit readonly="readonly" >
+				
+								   <select th:field ="*{enabled}" class="form-control" id=enabledEdit style="width:200px" size="1">
+									<option th:value="true" th:text="true" ></option>
+								<option th:value="false" th:text="false" ></option>
+								
+								</select>
+								
 								</div>
 								<div class="form-group">
 									<label  >Type:</label>
-									<input type="text" class="form-control"  th:field="*{type}" id=typeEdit readonly="readonly" >
+									 <select th:field ="*{type}" class="form-control" id="typeedit"  style="width:200px" size="1">
+									<option th:value="ROLE_STUDENT" th:text="ROLE_STUDENT"  ></option>
+								</select>
+								
 								</div>
 							</div>
 							<div class="modal-footer">

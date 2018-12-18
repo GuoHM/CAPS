@@ -240,11 +240,11 @@ public class AdminController {
 	public ModelAndView insertCustomers(@ModelAttribute Account lecturer) {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		lecturer.setPassword(bCryptPasswordEncoder.encode(lecturer.getPassword()));
-		lecturer.setType("ROLE_STUDENT");
+		lecturer.setType("ROLE_LECTURER");
 		lecturer.setEnabled("true");
 		Accountrole a = new Accountrole();
 		a.setUserid(lecturer.getUserid());
-		a.setAuthority("ROLE_STUDENT");
+		a.setAuthority("ROLE_LECTURER");
 		adminService.insertOrUpdate(lecturer);
 		adminService.insertOrUpdateRole(a);
 		ModelAndView mav = new ModelAndView("admin/Listlecturer");
@@ -272,11 +272,11 @@ public class AdminController {
 	public ModelAndView updateLecturer(@ModelAttribute Account lecturer) {
 		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 		lecturer.setPassword(bCryptPasswordEncoder.encode(lecturer.getPassword()));
-		lecturer.setType("ROLE_STUDENT");
+		lecturer.setType("ROLE_LECTURER");
 		lecturer.setEnabled("true");
 		Accountrole a = new Accountrole();
 		a.setUserid(lecturer.getUserid());
-		a.setAuthority("ROLE_STUDENT");
+		a.setAuthority("ROLE_LECTURER");
 		adminService.insertOrUpdate(lecturer);
 		adminService.insertOrUpdateRole(a);
 		ModelAndView mav = new ModelAndView("admin/Listlecturer");
